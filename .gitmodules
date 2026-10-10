@@ -1,6 +1,6 @@
 [submodule "daemon"]
 	path = daemon
-	url = https://review.jami.net/jami-daemon
+	url = https://github.com/kool277/jami-daemon.git
 # Sparkle is updater for macOS
 [submodule "extras/packaging/update/sparkle/Sparkle"]
 	path = extras/packaging/update/sparkle/Sparkle
