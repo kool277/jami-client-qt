@@ -14,6 +14,18 @@
 
 def ciRef() { env.TAG_NAME?.startsWith('v') ? env.TAG_NAME : 'main' }
 
+// Run a network step up to 10 times, 30 s apart: this agent's connection
+// drops for minutes at a time.
+def withNetRetry(Closure body) {
+    def attempt = 0
+    retry(10) {
+        if (attempt++ > 0) {
+            sleep(time: 30, unit: 'SECONDS')
+        }
+        body()
+    }
+}
+
 pipeline {
     agent any
     options {
@@ -21,6 +33,8 @@ pipeline {
         ansiColor('xterm')
         timeout(time: 4, unit: 'HOURS')
         disableConcurrentBuilds()
+        // Checked out in the first stage, with withNetRetry.
+        skipDefaultCheckout()
         buildDiscarder(logRotator(numToKeepStr: '20'))
     }
     environment {
@@ -32,17 +46,20 @@ pipeline {
     stages {
         stage('Sources') {
             steps {
-                retry(3) {
+                withNetRetry {
+                    checkout scm
+                }
+                withNetRetry {
                     sh "rm -rf \"\$KOOL277\" && git clone -q --depth 1 --branch ${ciRef()} https://github.com/kool277/jami.git \"\$KOOL277\""
                 }
-                retry(3) {
+                withNetRetry {
                     sh 'git submodule update --init daemon 3rdparty/hunspell 3rdparty/md4c 3rdparty/tidy-html5 3rdparty/zxing-cpp'
                 }
                 script {
                     if (env.TAG_NAME?.startsWith('v')) {
                         def pin = sh(returnStdout: true,
                                      script: "git -C \"\$KOOL277\" ls-tree HEAD jami-daemon | awk '{print \$3}'").trim()
-                        retry(3) {
+                        withNetRetry {
                             sh "git -C daemon fetch -q origin ${pin} && git -C daemon checkout -q ${pin}"
                         }
                     }
@@ -71,7 +88,7 @@ pipeline {
                 withCredentials([usernamePassword(credentialsId: 'github-kool277',
                                                   usernameVariable: 'GH_USER',
                                                   passwordVariable: 'GH_TOKEN')]) {
-                    retry(3) {
+                    withNetRetry {
                         sh '"$CI/release/publish-release.sh" jami-client-qt "$TAG_NAME" build/dist/*'
                     }
                 }
