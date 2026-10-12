@@ -437,10 +437,14 @@ public:
 
     void TearDown() override
     {
-        auto& accountModel = globalEnv.lrcInstance->accountModel();
         if (!accountId.isEmpty()) {
+            // Other tests leave accounts behind, so wait for this one only.
+            auto& accountModel = globalEnv.lrcInstance->accountModel();
             accountModel.removeAccount(accountId);
-            QTRY_COMPARE(accountModel.getAccountCount(), 0);
+            const auto removed = [&] {
+                return !accountModel.getAccountList().contains(accountId);
+            };
+            EXPECT_TRUE(QTest::qWaitFor(removed, 15000));
         }
         ApiServerFixture::TearDown();
     }
