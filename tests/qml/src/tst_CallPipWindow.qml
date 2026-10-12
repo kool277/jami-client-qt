@@ -193,8 +193,13 @@ TestWrapper {
 
         // Clicking the pop-in button should call reabsorb() and deactivate PiP.
         function test_popInButtonDeactivatesPip() {
-            startCallAndWait()
-            activatePip()
+            // The PiP tracks a call ID that no call has, so that only the
+            // pop-in button can deactivate it: a real call to Bob ends as soon
+            // as no device of his is found (SIP 480), at no set moment.
+            verify(waitForSignalAndCheck(CallPipWindowManager,
+                                         "isPipActiveChanged",
+                                         () => CallPipWindowManager.setTestPipState(aliceConvId, aliceId, "pipTestCall"),
+                                         () => CallPipWindowManager.isPipActive))
 
             verify(CallPipWindowManager.isPipActive,
                    "PiP must be active before clicking pop-in")
@@ -210,8 +215,6 @@ TestWrapper {
                                          () => mouseClick(popOutButton),
                                          () => !CallPipWindowManager.isPipActive),
                    "isPipActive should become false after clicking pop-in")
-
-            endCurrentCall()
         }
     }
 }
