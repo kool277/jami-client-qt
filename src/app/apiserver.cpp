@@ -251,8 +251,11 @@ lookupNameForApi(const QString& accountId, const QString& username, int timeoutM
         return result;
     }
 
-    timer.start(timeoutMs);
-    loop.exec();
+    // The daemon may answer within the call, e.g. from its cache.
+    if (!result.started) {
+        timer.start(timeoutMs);
+        loop.exec();
+    }
 
     QObject::disconnect(resultConnection);
     QObject::disconnect(timeoutConnection);
@@ -307,8 +310,11 @@ lookupAddressForApi(const QString& accountId, const QString& addressQuery, int t
         return result;
     }
 
-    timer.start(timeoutMs);
-    loop.exec();
+    // The daemon may answer within the call, e.g. from its cache.
+    if (!result.started) {
+        timer.start(timeoutMs);
+        loop.exec();
+    }
 
     QObject::disconnect(resultConnection);
     QObject::disconnect(timeoutConnection);
