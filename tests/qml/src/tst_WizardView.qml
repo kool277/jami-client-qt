@@ -215,10 +215,12 @@ TestWrapper {
                 compare(spyAccountIsReady.count, 1)
                 accountPendingCleanup = true;
 
-                // Check if paras match with setup
+                // Check if paras match with setup. The hostname and password
+                // are applied after accountIsReady (see
+                // AccountAdapter::createSIPAccount), so wait for them.
                 compare(CurrentAccount.username, userName)
-                compare(CurrentAccount.hostname, serverName)
-                compare(CurrentAccount.password, password)
+                tryCompare(CurrentAccount, "hostname", serverName)
+                tryCompare(CurrentAccount, "password", password)
 
                 WizardViewStepModel.nextStep()
 

@@ -111,11 +111,12 @@ TestWrapper {
         // Switching accounts while PiP is open must not close it.
         // The onAccountChanged handler was intentionally removed; PiP must persist.
         function test_accountSwitch_doesNotClosePip() {
-            startCallAndWait()
-
+            // The PiP tracks a call ID that no call has, so that only the
+            // account switch could close it: a real call to Bob ends as soon
+            // as no device of his is found (SIP 480), at no set moment.
             verify(waitForSignalAndCheck(CallPipWindowManager,
                                          "isPipActiveChanged",
-                                         () => CallPipWindowManager.setTestPipState(aliceConvId, aliceId, ""),
+                                         () => CallPipWindowManager.setTestPipState(aliceConvId, aliceId, "pipTestCall"),
                                          () => CallPipWindowManager.isPipActive))
 
             verify(CallPipWindowManager.isPipActive, "PiP must be active before the account switch")
@@ -131,7 +132,6 @@ TestWrapper {
 
             AccountAdapter.changeAccount(0)
             CallPipWindowManager.closeAll()
-            endCurrentCall()
         }
 
         // On app close with MinimizeOnClose=true, popOutFirstActiveCall() must find the
