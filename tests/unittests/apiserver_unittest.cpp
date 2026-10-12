@@ -27,8 +27,12 @@
 #include <QJsonArray>
 #include <QSignalSpy>
 #include <QStandardPaths>
+#include <QTcpServer>
+#include <QTcpSocket>
 #include <QTest>
 #include <QWebSocket>
+
+#include <account_const.h>
 
 // ── Helper ──────────────────────────────────────────────────────────
 
@@ -389,9 +393,57 @@ TEST_F(ApiServerFixture, NameserverNameHeadUnreachableServerReturns502)
     EXPECT_EQ(resp.statusCode, 502);
 }
 
-TEST_F(ApiServerFixture, NameserverAddressLookupInvalidAddressReturns400)
+// The daemon only learns about an address from a name server, so address
+// lookups go through an account whose name server is a local one. Like
+// ns.jami.net, it answers 400 to a malformed address.
+class LocalNameServerFixture : public ApiServerFixture
 {
-    auto resp = getNoAuth("/api/ns/address/====");
+public:
+    void SetUp() override
+    {
+        ApiServerFixture::SetUp();
+        ASSERT_FALSE(HasFatalFailure());
+
+        ASSERT_TRUE(nameServer.listen(QHostAddress::LocalHost));
+        QObject::connect(&nameServer, &QTcpServer::newConnection, &nameServer, [this] {
+            while (auto* socket = nameServer.nextPendingConnection()) {
+                QObject::connect(socket, &QTcpSocket::readyRead, socket, [socket] {
+                    socket->readAll();
+                    socket->write("HTTP/1.1 400 Bad Request\r\nContent-Length: 0\r\nConnection: close\r\n\r\n");
+                    socket->disconnectFromHost();
+                });
+                QObject::connect(socket, &QTcpSocket::disconnected, socket, &QObject::deleteLater);
+            }
+        });
+
+        auto& accountModel = globalEnv.lrcInstance->accountModel();
+        QSignalSpy accountAddedSpy(&accountModel, &lrc::api::AccountModel::accountAdded);
+        MapStringString details;
+        const auto nameServerUrl = QStringLiteral("http://127.0.0.1:%1").arg(nameServer.serverPort());
+        details[libjami::Account::ConfProperties::Nameserver::URI] = nameServerUrl;
+        accountId = accountModel.createNewAccount(lrc::api::profile::Type::JAMI, details);
+        ASSERT_TRUE(accountAddedSpy.wait(15000));
+        accountToken = server->tokenManager()->createToken(accountId, "test", {}, 0).rawToken;
+    }
+
+    void TearDown() override
+    {
+        auto& accountModel = globalEnv.lrcInstance->accountModel();
+        if (!accountId.isEmpty()) {
+            accountModel.removeAccount(accountId);
+            QTRY_COMPARE(accountModel.getAccountCount(), 0);
+        }
+        ApiServerFixture::TearDown();
+    }
+
+    QTcpServer nameServer;
+    QString accountId;
+    QString accountToken;
+};
+
+TEST_F(LocalNameServerFixture, NameserverAddressLookupInvalidAddressReturns400)
+{
+    auto resp = get("/api/ns/address/====", accountToken);
     EXPECT_EQ(resp.statusCode, 400);
 
     const auto obj = resp.jsonObj();
