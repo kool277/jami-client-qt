@@ -52,8 +52,11 @@ pipeline {
                 withNetRetry {
                     sh "rm -rf \"\$KOOL277\" && git clone -q --depth 1 --branch ${ciRef()} https://github.com/kool277/jami.git \"\$KOOL277\""
                 }
+                // --force: an update cut short by an outage leaves submodules
+                // cloned but not checked out, at the pinned commit, so a
+                // plain update would skip them from then on.
                 withNetRetry {
-                    sh 'git submodule update --init daemon 3rdparty/hunspell 3rdparty/md4c 3rdparty/tidy-html5 3rdparty/zxing-cpp'
+                    sh 'git submodule update --init --force daemon 3rdparty/hunspell 3rdparty/md4c 3rdparty/tidy-html5 3rdparty/zxing-cpp'
                 }
                 script {
                     if (env.TAG_NAME?.startsWith('v')) {
