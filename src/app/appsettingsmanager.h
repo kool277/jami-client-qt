@@ -50,6 +50,7 @@ extern const QString defaultDownloadPath;
     X(AutoAcceptFiles, true) \
     X(DisplayHyperlinkPreviews, true) \
     X(AppTheme, "System") \
+    X(ChatBackground, "Default") \
     X(BaseZoom, 1.0) \
     X(ParticipantsSide, false) \
     X(HideSelf, true) \

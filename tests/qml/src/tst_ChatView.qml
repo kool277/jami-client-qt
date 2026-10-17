@@ -72,6 +72,64 @@ TestWrapper {
                     CurrentConversation.title = "Name B"
                     tryCompare(titleLabel, "eText", "Name B", 1000)
                 }
+
+                function test_paintsTheChatBackgroundChosenInTheSettings() {
+                    const chatBackground = findChild(uut, "chatBackground")
+                    const headerGradient = findChild(uut, "chatViewHeaderGradient")
+
+                    // By default, the conversation colour shows through.
+                    UtilsAdapter.setToDefault(Settings.Key.ChatBackground)
+                    verify(!chatBackground.painted)
+                    verify(!headerGradient.layer.enabled)
+
+                    // The messages fade under the header into the chosen background.
+                    UtilsAdapter.setAppValue(Settings.Key.ChatBackground, "ocean")
+                    verify(chatBackground.painted)
+                    compare(chatBackground.colors[0].toString(), JamiTheme.darkTheme ? "#0e2a3a" : "#cde8f6")
+                    compare(chatBackground.colors[1].toString(), JamiTheme.darkTheme ? "#211c3e" : "#d9d4f5")
+                    verify(headerGradient.layer.enabled)
+
+                    UtilsAdapter.setToDefault(Settings.Key.ChatBackground)
+                    verify(!chatBackground.painted)
+                    verify(!headerGradient.layer.enabled)
+                }
+
+                // Checks that an avatar shows the presence of the contact of a one-to-one
+                // conversation, like the conversation list, and only while it is online.
+                function checkContactPresence(avatar) {
+                    const wasCoreDialog = CurrentConversation.isCoreDialog
+                    const previousPresence = CurrentConversation.presence
+
+                    CurrentConversation.isCoreDialog = true
+                    CurrentConversation.presence = 2
+                    verify(avatar.showPresenceIndicator)
+                    compare(avatar.presenceStatus, 2)
+                    CurrentConversation.presence = 1
+                    verify(avatar.showPresenceIndicator)
+                    compare(avatar.presenceStatus, 1)
+                    CurrentConversation.presence = 0
+                    verify(!avatar.showPresenceIndicator)
+
+                    // The avatar of a group shows no presence.
+                    CurrentConversation.isCoreDialog = false
+                    CurrentConversation.presence = 2
+                    verify(!avatar.showPresenceIndicator)
+
+                    CurrentConversation.isCoreDialog = wasCoreDialog
+                    CurrentConversation.presence = previousPresence
+                }
+
+                function test_showsThePresenceOfTheContactInTheHeader() {
+                    checkContactPresence(findChild(uut, "chatViewHeaderAvatar"))
+                }
+
+                function test_showsThePresenceOfTheContactInTheDetails() {
+                    uut.switchToPanel(ChatView.SwarmDetailsPanel, false)
+                    const avatar = findChild(uut, "currentSwarmAvatar")
+                    verify(avatar)
+                    checkContactPresence(avatar)
+                    uut.closePanel()
+                }
             }
         }
     }

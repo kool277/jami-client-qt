@@ -69,6 +69,8 @@ class UtilsAdapter final : public QmlAdapterBase
 
     QML_PROPERTY(QStringList, logList)
     QML_RO_PROPERTY(bool, isRTL)
+    // The chat background chosen in the appearance settings, as ChatBackground::parse reads it.
+    QML_RO_PROPERTY(QString, chatBackground)
 public:
     static UtilsAdapter* create(QQmlEngine*, QJSEngine*)
     {
@@ -89,6 +91,12 @@ public:
     Q_INVOKABLE void setAppValue(const Settings::Key key, const QVariant& value);
     Q_INVOKABLE QVariant getDefault(const Settings::Key key);
     Q_INVOKABLE void setToDefault(const Settings::Key key);
+
+    // The ids of the chat background presets, in the order the appearance settings offer them.
+    Q_INVOKABLE QStringList getChatBackgroundPresetIds() const;
+    // The start and end colors to paint for a chat background with the light or dark theme, or
+    // none to keep the theme's background.
+    Q_INVOKABLE QVariantList getChatBackgroundColors(const QString& chatBackground, bool darkTheme) const;
 
     Q_INVOKABLE const QString getProjectCredits();
     Q_INVOKABLE const QString getBuildIDStr();

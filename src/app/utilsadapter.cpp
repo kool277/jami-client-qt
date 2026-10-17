@@ -17,6 +17,7 @@
 
 #include "utilsadapter.h"
 
+#include "chatbackground.h"
 #include "lrcinstance.h"
 #include "systemtray.h"
 #include "utils.h"
@@ -55,6 +56,7 @@ UtilsAdapter::UtilsAdapter(AppSettingsManager* settingsManager,
         lrcInstance_->avModel().setRecordPath(getDefaultRecordPath());
     }
     set_isRTL(isRTL());
+    set_chatBackground(ChatBackground::parse(getAppValue(Settings::Key::ChatBackground).toString()));
 }
 
 QVariant
@@ -96,6 +98,8 @@ UtilsAdapter::setAppValue(const Settings::Key key, const QVariant& value)
         Q_EMIT chatviewPositionChanged();
     else if (key == Settings::Key::AppTheme)
         Q_EMIT appThemeChanged();
+    else if (key == Settings::Key::ChatBackground)
+        set_chatBackground(ChatBackground::parse(value.toString()));
     else if (key == Settings::Key::UseFramelessWindow)
         Q_EMIT useFramelessWindowChanged();
     else if (key == Settings::Key::SpellLang)
@@ -122,6 +126,24 @@ void
 UtilsAdapter::setToDefault(const Settings::Key key)
 {
     setAppValue(key, settingsManager_->getDefault(key));
+}
+
+QStringList
+UtilsAdapter::getChatBackgroundPresetIds() const
+{
+    QStringList ids;
+    for (const auto& preset : ChatBackground::presets())
+        ids.append(preset.id);
+    return ids;
+}
+
+QVariantList
+UtilsAdapter::getChatBackgroundColors(const QString& chatBackground, bool darkTheme) const
+{
+    const auto colors = ChatBackground::colors(chatBackground, darkTheme);
+    if (!colors)
+        return {};
+    return {colors->start, colors->end};
 }
 
 const QString

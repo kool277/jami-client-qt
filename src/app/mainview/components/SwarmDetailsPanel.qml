@@ -101,6 +101,7 @@ Item {
 
                 PhotoboothView {
                     id: currentSwarmAvatar
+                    objectName: "currentSwarmAvatar"
 
                     anchors.verticalCenter: parent.verticalCenter
 
@@ -112,6 +113,8 @@ Item {
                     newItem: true
                     imageId: LRCInstance.selectedConvUid
                     avatarSize: 164
+                    presenceStatus: CurrentConversation.presence
+                    showPresenceIndicator: CurrentConversation.isCoreDialog && CurrentConversation.presence > 0
                 }
 
                 ColumnLayout {
