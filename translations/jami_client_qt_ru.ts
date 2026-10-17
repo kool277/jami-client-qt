@@ -37,19 +37,19 @@
     <message>
         <location filename="../src/app/commoncomponents/CollabDocListPopup.qml" line="46"/>
         <source>Remove document</source>
-        <translation type="unfinished"/>
+        <translation>Удалить документ</translation>
     </message>
     <message>
         <location filename="../src/app/commoncomponents/CollabDocListPopup.qml" line="47"/>
         <source>&quot;%1&quot; will be removed for every member of this conversation. This cannot be undone.</source>
-        <translation type="unfinished"/>
+        <translation>«%1» будет удалён у всех участников этой беседы. Это действие нельзя отменить.</translation>
     </message>
     <message>
         <location filename="../src/app/commoncomponents/CollabDocListPopup.qml" line="47"/>
         <location filename="../src/app/commoncomponents/CollabDocListPopup.qml" line="64"/>
         <location filename="../src/app/commoncomponents/CollabDocListPopup.qml" line="175"/>
         <source>Untitled document</source>
-        <translation type="unfinished"/>
+        <translation>Документ без названия</translation>
     </message>
     <message>
         <location filename="../src/app/commoncomponents/CollabDocListPopup.qml" line="48"/>
@@ -67,17 +67,17 @@
         <location filename="../src/app/commoncomponents/CollabDocListPopup.qml" line="63"/>
         <location filename="../src/app/commoncomponents/CollabDocListPopup.qml" line="209"/>
         <source>Remove from this device</source>
-        <translation type="unfinished"/>
+        <translation>Удалить с этого устройства</translation>
     </message>
     <message>
         <location filename="../src/app/commoncomponents/CollabDocListPopup.qml" line="64"/>
         <source>&quot;%1&quot; will be removed from this device only. The other members keep it, and opening it again downloads it back.</source>
-        <translation type="unfinished"/>
+        <translation>«%1» будет удалён только с этого устройства. У других участников он останется, а при повторном открытии документ будет загружен снова.</translation>
     </message>
     <message>
         <location filename="../src/app/commoncomponents/CollabDocListPopup.qml" line="73"/>
         <source>Editable documents</source>
-        <translation type="unfinished"/>
+        <translation>Редактируемые документы</translation>
     </message>
     <message>
         <location filename="../src/app/commoncomponents/CollabDocListPopup.qml" line="75"/>
@@ -87,17 +87,17 @@
     <message>
         <location filename="../src/app/commoncomponents/CollabDocListPopup.qml" line="112"/>
         <source>No editable document in this conversation yet.</source>
-        <translation type="unfinished"/>
+        <translation>В этой беседе пока нет редактируемых документов.</translation>
     </message>
     <message>
         <location filename="../src/app/commoncomponents/CollabDocListPopup.qml" line="191"/>
         <source>%1 - not on this device</source>
-        <translation type="unfinished"/>
+        <translation>%1 — нет на этом устройстве</translation>
     </message>
     <message>
         <location filename="../src/app/commoncomponents/CollabDocListPopup.qml" line="226"/>
         <source>Remove this document</source>
-        <translation type="unfinished"/>
+        <translation>Удалить этот документ</translation>
     </message>
 </context>
 <context>
@@ -106,17 +106,17 @@
         <location filename="../src/app/commoncomponents/CollabDocMessageDelegate.qml" line="80"/>
         <location filename="../src/app/commoncomponents/CollabDocMessageDelegate.qml" line="126"/>
         <source>Editable document</source>
-        <translation type="unfinished"/>
+        <translation>Редактируемый документ</translation>
     </message>
     <message>
         <location filename="../src/app/commoncomponents/CollabDocMessageDelegate.qml" line="115"/>
         <source>Untitled document</source>
-        <translation type="unfinished"/>
+        <translation>Документ без названия</translation>
     </message>
     <message>
         <location filename="../src/app/commoncomponents/CollabDocMessageDelegate.qml" line="126"/>
         <source>Document removed</source>
-        <translation type="unfinished"/>
+        <translation>Документ удалён</translation>
     </message>
 </context>
 <context>
@@ -124,12 +124,12 @@
     <message>
         <location filename="../src/app/mainview/components/CollabHistoryPanel.qml" line="83"/>
         <source>Today %1</source>
-        <translation type="unfinished"/>
+        <translation>Сегодня в %1</translation>
     </message>
     <message>
         <location filename="../src/app/mainview/components/CollabHistoryPanel.qml" line="105"/>
         <source>Version history</source>
-        <translation type="unfinished"/>
+        <translation>История версий</translation>
     </message>
     <message>
         <location filename="../src/app/mainview/components/CollabHistoryPanel.qml" line="116"/>
@@ -139,42 +139,42 @@
     <message>
         <location filename="../src/app/mainview/components/CollabHistoryPanel.qml" line="126"/>
         <source>No version saved yet. Versions are saved as you stop typing.</source>
-        <translation type="unfinished"/>
+        <translation>Сохранённых версий пока нет. Версии сохраняются, когда вы перестаёте печатать.</translation>
     </message>
     <message>
         <location filename="../src/app/mainview/components/CollabHistoryPanel.qml" line="143"/>
         <source>Current version</source>
-        <translation type="unfinished"/>
+        <translation>Текущая версия</translation>
     </message>
     <message>
         <location filename="../src/app/mainview/components/CollabHistoryPanel.qml" line="149"/>
         <source>Editable</source>
-        <translation type="unfinished"/>
+        <translation>Можно редактировать</translation>
     </message>
     <message>
         <location filename="../src/app/mainview/components/CollabHistoryPanel.qml" line="186"/>
         <source>Someone</source>
-        <translation type="unfinished"/>
+        <translation>Кто-то</translation>
     </message>
     <message numerus="yes">
         <location filename="../src/app/mainview/components/CollabHistoryPanel.qml" line="187"/>
         <source>%n change(s)</source>
-        <translation type="unfinished"><numerusform></numerusform><numerusform></numerusform><numerusform></numerusform><numerusform></numerusform></translation>
+        <translation><numerusform>%n изменение</numerusform><numerusform>%n изменения</numerusform><numerusform>%n изменений</numerusform></translation>
     </message>
     <message>
         <location filename="../src/app/mainview/components/CollabHistoryPanel.qml" line="202"/>
         <source>Restore this version</source>
-        <translation type="unfinished"/>
+        <translation>Восстановить эту версию</translation>
     </message>
     <message>
         <location filename="../src/app/mainview/components/CollabHistoryPanel.qml" line="203"/>
         <source>Brings the document back to this content for everyone. Reversible.</source>
-        <translation type="unfinished"/>
+        <translation>Возвращает документ к этому содержимому для всех. Это можно отменить.</translation>
     </message>
     <message>
         <location filename="../src/app/mainview/components/CollabHistoryPanel.qml" line="223"/>
         <source>This version could not be restored.</source>
-        <translation type="unfinished"/>
+        <translation>Не удалось восстановить эту версию.</translation>
     </message>
 </context>
 <context>
@@ -182,7 +182,7 @@
     <message>
         <location filename="../src/app/commoncomponents/CollabNewDocPopup.qml" line="44"/>
         <source>New editable document</source>
-        <translation type="unfinished"/>
+        <translation>Новый редактируемый документ</translation>
     </message>
     <message>
         <location filename="../src/app/commoncomponents/CollabNewDocPopup.qml" line="46"/>
@@ -197,12 +197,12 @@
     <message>
         <location filename="../src/app/commoncomponents/CollabNewDocPopup.qml" line="65"/>
         <source>Document name</source>
-        <translation type="unfinished"/>
+        <translation>Название документа</translation>
     </message>
     <message>
         <location filename="../src/app/commoncomponents/CollabNewDocPopup.qml" line="76"/>
         <source>Untitled document</source>
-        <translation type="unfinished"/>
+        <translation>Документ без названия</translation>
     </message>
 </context>
 <context>
@@ -210,61 +210,61 @@
     <message>
         <location filename="../src/app/mainview/components/CollabRichEditorWindow.qml" line="64"/>
         <source>Editable document</source>
-        <translation type="unfinished"/>
+        <translation>Редактируемый документ</translation>
     </message>
     <message>
         <location filename="../src/app/mainview/components/CollabRichEditorWindow.qml" line="270"/>
         <source>Document removed</source>
-        <translation type="unfinished"/>
+        <translation>Документ удалён</translation>
     </message>
     <message>
         <location filename="../src/app/mainview/components/CollabRichEditorWindow.qml" line="270"/>
         <source>Document removed from this device</source>
-        <translation type="unfinished"/>
+        <translation>Документ удалён с этого устройства</translation>
     </message>
     <message>
         <location filename="../src/app/mainview/components/CollabRichEditorWindow.qml" line="271"/>
         <source>&quot;%1&quot; was removed by its author.</source>
-        <translation type="unfinished"/>
+        <translation>«%1» удалён автором.</translation>
     </message>
     <message>
         <location filename="../src/app/mainview/components/CollabRichEditorWindow.qml" line="271"/>
         <source>&quot;%1&quot; is no longer on this device. Opening it again downloads it back.</source>
-        <translation type="unfinished"/>
+        <translation>«%1» больше нет на этом устройстве. При повторном открытии он будет загружен снова.</translation>
     </message>
     <message>
         <location filename="../src/app/mainview/components/CollabRichEditorWindow.qml" line="358"/>
         <location filename="../src/app/mainview/components/CollabRichEditorWindow.qml" line="782"/>
         <source>Insert image</source>
-        <translation type="unfinished"/>
+        <translation>Вставить изображение</translation>
     </message>
     <message>
         <location filename="../src/app/mainview/components/CollabRichEditorWindow.qml" line="360"/>
         <source>Images</source>
-        <translation type="unfinished"/>
+        <translation>Изображения</translation>
     </message>
     <message>
         <location filename="../src/app/mainview/components/CollabRichEditorWindow.qml" line="370"/>
         <location filename="../src/app/mainview/components/CollabRichEditorWindow.qml" line="443"/>
         <location filename="../src/app/mainview/components/CollabRichEditorWindow.qml" line="486"/>
         <source>This image could not be added. It has to be an image of at most 16 MB.</source>
-        <translation type="unfinished"/>
+        <translation>Не удалось добавить это изображение. Размер изображения не должен превышать 16 МБ.</translation>
     </message>
     <message>
         <location filename="../src/app/mainview/components/CollabRichEditorWindow.qml" line="392"/>
         <location filename="../src/app/mainview/components/CollabRichEditorWindow.qml" line="411"/>
         <source>Export document</source>
-        <translation type="unfinished"/>
+        <translation>Экспорт документа</translation>
     </message>
     <message numerus="yes">
         <location filename="../src/app/mainview/components/CollabRichEditorWindow.qml" line="393"/>
         <source>%n picture(s) in this document have not arrived yet and would be exported as empty boxes.</source>
-        <translation type="unfinished"><numerusform></numerusform><numerusform></numerusform><numerusform></numerusform><numerusform></numerusform></translation>
+        <translation><numerusform>%n изображение в этом документе ещё не получено и будет экспортировано как пустая рамка.</numerusform><numerusform>%n изображения в этом документе ещё не получены и будут экспортированы как пустые рамки.</numerusform><numerusform>%n изображений в этом документе ещё не получены и будут экспортированы как пустые рамки.</numerusform></translation>
     </message>
     <message>
         <location filename="../src/app/mainview/components/CollabRichEditorWindow.qml" line="394"/>
         <source>Export anyway</source>
-        <translation type="unfinished"/>
+        <translation>Всё равно экспортировать</translation>
     </message>
     <message>
         <location filename="../src/app/mainview/components/CollabRichEditorWindow.qml" line="395"/>
@@ -274,12 +274,12 @@
     <message>
         <location filename="../src/app/mainview/components/CollabRichEditorWindow.qml" line="409"/>
         <source>document</source>
-        <translation type="unfinished"/>
+        <translation>документ</translation>
     </message>
     <message>
         <location filename="../src/app/mainview/components/CollabRichEditorWindow.qml" line="423"/>
         <source>Document exported</source>
-        <translation type="unfinished"/>
+        <translation>Документ экспортирован</translation>
     </message>
     <message>
         <location filename="../src/app/mainview/components/CollabRichEditorWindow.qml" line="423"/>
@@ -289,77 +289,77 @@
     <message>
         <location filename="../src/app/mainview/components/CollabRichEditorWindow.qml" line="424"/>
         <source>The document could not be written there.</source>
-        <translation type="unfinished"/>
+        <translation>Не удалось записать документ в это место.</translation>
     </message>
     <message>
         <location filename="../src/app/mainview/components/CollabRichEditorWindow.qml" line="569"/>
         <source>Untitled document</source>
-        <translation type="unfinished"/>
+        <translation>Документ без названия</translation>
     </message>
     <message>
         <location filename="../src/app/mainview/components/CollabRichEditorWindow.qml" line="583"/>
         <source>Click to rename</source>
-        <translation type="unfinished"/>
+        <translation>Нажмите, чтобы переименовать</translation>
     </message>
     <message>
         <location filename="../src/app/mainview/components/CollabRichEditorWindow.qml" line="600"/>
         <source>Document name</source>
-        <translation type="unfinished"/>
+        <translation>Название документа</translation>
     </message>
     <message>
         <location filename="../src/app/mainview/components/CollabRichEditorWindow.qml" line="700"/>
         <source>Bulleted list</source>
-        <translation type="unfinished"/>
+        <translation>Маркированный список</translation>
     </message>
     <message>
         <location filename="../src/app/mainview/components/CollabRichEditorWindow.qml" line="712"/>
         <source>Numbered list</source>
-        <translation type="unfinished"/>
+        <translation>Нумерованный список</translation>
     </message>
     <message>
         <location filename="../src/app/mainview/components/CollabRichEditorWindow.qml" line="738"/>
         <source>Paragraph alignment</source>
-        <translation type="unfinished"/>
+        <translation>Выравнивание абзаца</translation>
     </message>
     <message>
         <location filename="../src/app/mainview/components/CollabRichEditorWindow.qml" line="789"/>
         <source>Clear formatting</source>
-        <translation type="unfinished"/>
+        <translation>Очистить форматирование</translation>
     </message>
     <message>
         <location filename="../src/app/mainview/components/CollabRichEditorWindow.qml" line="811"/>
         <source>Base font size</source>
-        <translation type="unfinished"/>
+        <translation>Базовый размер шрифта</translation>
     </message>
     <message>
         <location filename="../src/app/mainview/components/CollabRichEditorWindow.qml" line="835"/>
         <source>Export a local copy</source>
-        <translation type="unfinished"/>
+        <translation>Экспортировать локальную копию</translation>
     </message>
     <message>
         <location filename="../src/app/mainview/components/CollabRichEditorWindow.qml" line="852"/>
         <source>Version history</source>
-        <translation type="unfinished"/>
+        <translation>История версий</translation>
     </message>
     <message>
         <location filename="../src/app/mainview/components/CollabRichEditorWindow.qml" line="869"/>
         <source>Show the raw document</source>
-        <translation type="unfinished"/>
+        <translation>Показать исходный текст документа</translation>
     </message>
     <message>
         <location filename="../src/app/mainview/components/CollabRichEditorWindow.qml" line="920"/>
         <source>Start typing…</source>
-        <translation type="unfinished"/>
+        <translation>Начните печатать…</translation>
     </message>
     <message>
         <location filename="../src/app/mainview/components/CollabRichEditorWindow.qml" line="1140"/>
         <source>Someone</source>
-        <translation type="unfinished"/>
+        <translation>Кто-то</translation>
     </message>
     <message>
         <location filename="../src/app/mainview/components/CollabRichEditorWindow.qml" line="1278"/>
         <source>Link URL</source>
-        <translation type="unfinished"/>
+        <translation>URL-адрес ссылки</translation>
     </message>
     <message>
         <location filename="../src/app/mainview/components/CollabRichEditorWindow.qml" line="1294"/>
@@ -369,7 +369,7 @@
     <message>
         <location filename="../src/app/mainview/components/CollabRichEditorWindow.qml" line="1305"/>
         <source>Apply</source>
-        <translation type="unfinished"/>
+        <translation>Применить</translation>
     </message>
     <message>
         <location filename="../src/app/mainview/components/CollabRichEditorWindow.qml" line="1323"/>
@@ -389,72 +389,72 @@
     <message>
         <location filename="../src/app/mainview/components/CollabRichEditorWindow.qml" line="1347"/>
         <source>Export as PDF…</source>
-        <translation type="unfinished"/>
+        <translation>Экспорт в PDF…</translation>
     </message>
     <message>
         <location filename="../src/app/mainview/components/CollabRichEditorWindow.qml" line="1350"/>
         <source>PDF document</source>
-        <translation type="unfinished"/>
+        <translation>Документ PDF</translation>
     </message>
     <message>
         <location filename="../src/app/mainview/components/CollabRichEditorWindow.qml" line="1353"/>
         <source>Export as ODT…</source>
-        <translation type="unfinished"/>
+        <translation>Экспорт в ODT…</translation>
     </message>
     <message>
         <location filename="../src/app/mainview/components/CollabRichEditorWindow.qml" line="1356"/>
         <source>OpenDocument text</source>
-        <translation type="unfinished"/>
+        <translation>Текст OpenDocument</translation>
     </message>
     <message>
         <location filename="../src/app/mainview/components/CollabRichEditorWindow.qml" line="1359"/>
         <source>Export as HTML…</source>
-        <translation type="unfinished"/>
+        <translation>Экспорт в HTML…</translation>
     </message>
     <message>
         <location filename="../src/app/mainview/components/CollabRichEditorWindow.qml" line="1362"/>
         <source>HTML document</source>
-        <translation type="unfinished"/>
+        <translation>Документ HTML</translation>
     </message>
     <message>
         <location filename="../src/app/mainview/components/CollabRichEditorWindow.qml" line="1365"/>
         <source>Export as Markdown…</source>
-        <translation type="unfinished"/>
+        <translation>Экспорт в Markdown…</translation>
     </message>
     <message>
         <location filename="../src/app/mainview/components/CollabRichEditorWindow.qml" line="1368"/>
         <source>Markdown document</source>
-        <translation type="unfinished"/>
+        <translation>Документ Markdown</translation>
     </message>
     <message>
         <location filename="../src/app/mainview/components/CollabRichEditorWindow.qml" line="1371"/>
         <source>Export as plain text…</source>
-        <translation type="unfinished"/>
+        <translation>Экспорт в обычный текст…</translation>
     </message>
     <message>
         <location filename="../src/app/mainview/components/CollabRichEditorWindow.qml" line="1374"/>
         <source>Plain text document</source>
-        <translation type="unfinished"/>
+        <translation>Обычный текстовый документ</translation>
     </message>
     <message>
         <location filename="../src/app/mainview/components/CollabRichEditorWindow.qml" line="1387"/>
         <source>Align left</source>
-        <translation type="unfinished"/>
+        <translation>По левому краю</translation>
     </message>
     <message>
         <location filename="../src/app/mainview/components/CollabRichEditorWindow.qml" line="1391"/>
         <source>Centre</source>
-        <translation type="unfinished"/>
+        <translation>По центру</translation>
     </message>
     <message>
         <location filename="../src/app/mainview/components/CollabRichEditorWindow.qml" line="1395"/>
         <source>Align right</source>
-        <translation type="unfinished"/>
+        <translation>По правому краю</translation>
     </message>
     <message>
         <location filename="../src/app/mainview/components/CollabRichEditorWindow.qml" line="1399"/>
         <source>Justify</source>
-        <translation type="unfinished"/>
+        <translation>По ширине</translation>
     </message>
 </context>
 <context>
@@ -600,7 +600,7 @@
     <message>
         <location filename="../src/app/net/jami/Constants/JamiStrings.qml" line="33"/>
         <source>Edits</source>
-        <translation type="unfinished"/>
+        <translation>Правки</translation>
     </message>
     <message>
         <location filename="../src/app/net/jami/Constants/JamiStrings.qml" line="41"/>
@@ -1097,22 +1097,22 @@
     <message>
         <location filename="../src/app/net/jami/Constants/JamiStrings.qml" line="224"/>
         <source>Bot Accounts</source>
-        <translation type="unfinished"/>
+        <translation>Аккаунты ботов</translation>
     </message>
     <message>
         <location filename="../src/app/net/jami/Constants/JamiStrings.qml" line="225"/>
         <source>Create Bot</source>
-        <translation type="unfinished"/>
+        <translation>Создать бота</translation>
     </message>
     <message>
         <location filename="../src/app/net/jami/Constants/JamiStrings.qml" line="226"/>
         <source>How do bots work?</source>
-        <translation type="unfinished"/>
+        <translation>Как работают боты?</translation>
     </message>
     <message>
         <location filename="../src/app/net/jami/Constants/JamiStrings.qml" line="227"/>
         <source>No bots configured for this account.</source>
-        <translation type="unfinished"/>
+        <translation>Для этой учётной записи не настроено ни одного бота.</translation>
     </message>
     <message>
         <location filename="../src/app/net/jami/Constants/JamiStrings.qml" line="228"/>
@@ -1129,58 +1129,59 @@
     <message>
         <location filename="../src/app/net/jami/Constants/JamiStrings.qml" line="230"/>
         <source>Copy URI</source>
-        <translation type="unfinished"/>
+        <translation>Копировать URI</translation>
     </message>
     <message>
         <location filename="../src/app/net/jami/Constants/JamiStrings.qml" line="231"/>
         <source>Share bot</source>
-        <translation type="unfinished"/>
+        <translation>Поделиться ботом</translation>
     </message>
     <message>
         <location filename="../src/app/net/jami/Constants/JamiStrings.qml" line="232"/>
         <source>Send bot to contact</source>
-        <translation type="unfinished"/>
+        <translation>Отправить бота контакту</translation>
     </message>
     <message>
         <location filename="../src/app/net/jami/Constants/JamiStrings.qml" line="233"/>
         <source>Add **%1** on Jami!
  Account ID: ```%2```</source>
-        <translation type="unfinished"/>
+        <translation>Добавьте **%1** в Jami!
+ ID аккаунта: ```%2```</translation>
     </message>
     <message>
         <location filename="../src/app/net/jami/Constants/JamiStrings.qml" line="236"/>
         <source>Create new bot</source>
-        <translation type="unfinished"/>
+        <translation>Создать нового бота</translation>
     </message>
     <message>
         <location filename="../src/app/net/jami/Constants/JamiStrings.qml" line="237"/>
         <source>Bot Name (as seen by others)</source>
-        <translation type="unfinished"/>
+        <translation>Имя бота (видно другим)</translation>
     </message>
     <message>
         <location filename="../src/app/net/jami/Constants/JamiStrings.qml" line="238"/>
         <source>This is the only time you will see the token. Keep it a secret and take note of it somewhere!</source>
-        <translation type="unfinished"/>
+        <translation>Токен показывается только один раз. Храните его в секрете и запишите где-нибудь!</translation>
     </message>
     <message>
         <location filename="../src/app/net/jami/Constants/JamiStrings.qml" line="241"/>
         <source>About Bot Accounts</source>
-        <translation type="unfinished"/>
+        <translation>Об аккаунтах ботов</translation>
     </message>
     <message>
         <location filename="../src/app/net/jami/Constants/JamiStrings.qml" line="242"/>
         <source>A bot account is a regular Jami account with additional properties.</source>
-        <translation type="unfinished"/>
+        <translation>Аккаунт бота — это обычный аккаунт Jami с дополнительными свойствами.</translation>
     </message>
     <message>
         <location filename="../src/app/net/jami/Constants/JamiStrings.qml" line="243"/>
         <source>A bot account is designed to be controlled by external applications or scripts. It will have an API token associated with it once created.</source>
-        <translation type="unfinished"/>
+        <translation>Аккаунт бота предназначен для управления внешними приложениями или скриптами. После создания с ним будет связан токен API.</translation>
     </message>
     <message>
         <location filename="../src/app/net/jami/Constants/JamiStrings.qml" line="244"/>
         <source>A bot account includes profile markers indicating that it is a bot and the account controlling it.</source>
-        <translation type="unfinished"/>
+        <translation>Профиль аккаунта бота содержит отметки о том, что это бот, и об аккаунте, который им управляет.</translation>
     </message>
     <message>
         <location filename="../src/app/net/jami/Constants/JamiStrings.qml" line="247"/>
@@ -1197,7 +1198,7 @@
     <message>
         <location filename="../src/app/net/jami/Constants/JamiStrings.qml" line="250"/>
         <source>No services are shared yet.</source>
-        <translation type="unfinished"/>
+        <translation>Общих сервисов пока нет.</translation>
     </message>
     <message>
         <location filename="../src/app/net/jami/Constants/JamiStrings.qml" line="251"/>
@@ -1253,12 +1254,12 @@
     <message>
         <location filename="../src/app/net/jami/Constants/JamiStrings.qml" line="261"/>
         <source>Use local port as preferred port on peers</source>
-        <translation type="unfinished"/>
+        <translation>Использовать локальный порт как предпочтительный порт у пиров</translation>
     </message>
     <message>
         <location filename="../src/app/net/jami/Constants/JamiStrings.qml" line="262"/>
         <source>Suggest a fixed port for peers. If busy, Jami uses a random port.</source>
-        <translation type="unfinished"/>
+        <translation>Предлагать пирам фиксированный порт. Если он занят, Jami использует случайный порт.</translation>
     </message>
     <message>
         <location filename="../src/app/net/jami/Constants/JamiStrings.qml" line="263"/>
@@ -1434,7 +1435,7 @@
     <message>
         <location filename="../src/app/net/jami/Constants/JamiStrings.qml" line="304"/>
         <source>preferred port busy</source>
-        <translation type="unfinished"/>
+        <translation>предпочтительный порт занят</translation>
     </message>
     <message>
         <location filename="../src/app/net/jami/Constants/JamiStrings.qml" line="307"/>
@@ -1549,12 +1550,12 @@
     <message>
         <location filename="../src/app/net/jami/Constants/JamiStrings.qml" line="333"/>
         <source>Conference resolution</source>
-        <translation type="unfinished"/>
+        <translation>Разрешение конференции</translation>
     </message>
     <message>
         <location filename="../src/app/net/jami/Constants/JamiStrings.qml" line="334"/>
         <source>Group calls and conferences</source>
-        <translation type="unfinished"/>
+        <translation>Групповые вызовы и конференции</translation>
     </message>
     <message>
         <location filename="../src/app/net/jami/Constants/JamiStrings.qml" line="337"/>
@@ -1589,12 +1590,12 @@
     <message>
         <location filename="../src/app/net/jami/Constants/JamiStrings.qml" line="422"/>
         <source>Share audio</source>
-        <translation type="unfinished"/>
+        <translation>Поделиться звуком</translation>
     </message>
     <message>
         <location filename="../src/app/net/jami/Constants/JamiStrings.qml" line="424"/>
         <source>Sharing options</source>
-        <translation type="unfinished"/>
+        <translation>Параметры демонстрации</translation>
     </message>
     <message>
         <location filename="../src/app/net/jami/Constants/JamiStrings.qml" line="428"/>
@@ -1669,7 +1670,7 @@
     <message>
         <location filename="../src/app/net/jami/Constants/JamiStrings.qml" line="490"/>
         <source>Open external link?</source>
-        <translation type="unfinished"/>
+        <translation>Открыть внешнюю ссылку?</translation>
     </message>
     <message>
         <location filename="../src/app/net/jami/Constants/JamiStrings.qml" line="493"/>
@@ -1809,12 +1810,12 @@
     <message>
         <location filename="../src/app/net/jami/Constants/JamiStrings.qml" line="719"/>
         <source>Quick Switcher</source>
-        <translation type="unfinished"/>
+        <translation>Быстрый переход</translation>
     </message>
     <message>
         <location filename="../src/app/net/jami/Constants/JamiStrings.qml" line="720"/>
         <source>Find conversations, contacts, or settings</source>
-        <translation type="unfinished"/>
+        <translation>Поиск бесед, контактов или настроек</translation>
     </message>
     <message>
         <location filename="../src/app/net/jami/Constants/JamiStrings.qml" line="751"/>
@@ -1889,17 +1890,17 @@
     <message>
         <location filename="../src/app/net/jami/Constants/JamiStrings.qml" line="949"/>
         <source>Show original</source>
-        <translation type="unfinished"/>
+        <translation>Показать оригинал</translation>
     </message>
     <message>
         <location filename="../src/app/net/jami/Constants/JamiStrings.qml" line="950"/>
         <source>Show modified</source>
-        <translation type="unfinished"/>
+        <translation>Показать изменённое</translation>
     </message>
     <message>
         <location filename="../src/app/net/jami/Constants/JamiStrings.qml" line="951"/>
         <source>Modified by extension</source>
-        <translation type="unfinished"/>
+        <translation>Изменено расширением</translation>
     </message>
     <message>
         <location filename="../src/app/net/jami/Constants/JamiStrings.qml" line="955"/>
@@ -1999,7 +2000,7 @@
     <message>
         <location filename="../src/app/net/jami/Constants/JamiStrings.qml" line="1081"/>
         <source>Swarm connectivity</source>
-        <translation type="unfinished"/>
+        <translation>Связность Swarm</translation>
     </message>
     <message>
         <location filename="../src/app/net/jami/Constants/JamiStrings.qml" line="1082"/>
@@ -2009,12 +2010,12 @@
     <message>
         <location filename="../src/app/net/jami/Constants/JamiStrings.qml" line="1083"/>
         <source>Searched contact</source>
-        <translation type="unfinished"/>
+        <translation>Искомый контакт</translation>
     </message>
     <message>
         <location filename="../src/app/net/jami/Constants/JamiStrings.qml" line="1084"/>
         <source>No channels</source>
-        <translation type="unfinished"/>
+        <translation>Нет каналов</translation>
     </message>
     <message>
         <location filename="../src/app/net/jami/Constants/JamiStrings.qml" line="1087"/>
@@ -5155,7 +5156,7 @@ Please confirm the import on the new device.</source>
     <message>
         <location filename="../src/app/mainview/components/KeyboardShortcutTable.qml" line="45"/>
         <source>Quick Switcher</source>
-        <translation type="unfinished"/>
+        <translation>Быстрый переход</translation>
     </message>
     <message>
         <location filename="../src/app/mainview/components/KeyboardShortcutTable.qml" line="49"/>
@@ -5306,7 +5307,7 @@ Please confirm the import on the new device.</source>
     <message>
         <location filename="../src/app/mainview/components/MessageFormatBar.qml" line="585"/>
         <source>Editable documents</source>
-        <translation type="unfinished"/>
+        <translation>Редактируемые документы</translation>
     </message>
 </context>
 <context>
@@ -5428,7 +5429,7 @@ Please confirm the import on the new device.</source>
     <message>
         <location filename="../src/core/api/interaction.h" line="293"/>
         <source>You were invited to join the conversation.</source>
-        <translation type="unfinished"/>
+        <translation>Вас пригласили присоединиться к беседе.</translation>
     </message>
     <message>
         <location filename="../src/core/api/interaction.h" line="295"/>
@@ -5942,7 +5943,7 @@ Please confirm the import on the new device.</source>
     <message>
         <location filename="../src/app/commoncomponents/ShareMenu.qml" line="43"/>
         <source>New editable document</source>
-        <translation type="unfinished"/>
+        <translation>Новый редактируемый документ</translation>
     </message>
 </context>
 <context>
