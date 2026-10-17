@@ -93,6 +93,43 @@ TestWrapper {
                     verify(!chatBackground.painted)
                     verify(!headerGradient.layer.enabled)
                 }
+
+                // Checks that an avatar shows the presence of the contact of a one-to-one
+                // conversation, like the conversation list, and only while it is online.
+                function checkContactPresence(avatar) {
+                    const wasCoreDialog = CurrentConversation.isCoreDialog
+                    const previousPresence = CurrentConversation.presence
+
+                    CurrentConversation.isCoreDialog = true
+                    CurrentConversation.presence = 2
+                    verify(avatar.showPresenceIndicator)
+                    compare(avatar.presenceStatus, 2)
+                    CurrentConversation.presence = 1
+                    verify(avatar.showPresenceIndicator)
+                    compare(avatar.presenceStatus, 1)
+                    CurrentConversation.presence = 0
+                    verify(!avatar.showPresenceIndicator)
+
+                    // The avatar of a group shows no presence.
+                    CurrentConversation.isCoreDialog = false
+                    CurrentConversation.presence = 2
+                    verify(!avatar.showPresenceIndicator)
+
+                    CurrentConversation.isCoreDialog = wasCoreDialog
+                    CurrentConversation.presence = previousPresence
+                }
+
+                function test_showsThePresenceOfTheContactInTheHeader() {
+                    checkContactPresence(findChild(uut, "chatViewHeaderAvatar"))
+                }
+
+                function test_showsThePresenceOfTheContactInTheDetails() {
+                    uut.switchToPanel(ChatView.SwarmDetailsPanel, false)
+                    const avatar = findChild(uut, "currentSwarmAvatar")
+                    verify(avatar)
+                    checkContactPresence(avatar)
+                    uut.closePanel()
+                }
             }
         }
     }
