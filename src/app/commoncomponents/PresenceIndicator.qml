@@ -28,6 +28,11 @@ Rectangle {
     property int status: Account.Status.REGISTERED
     property int size: 15
 
+    // Screen readers announce an online contact (presence 1 or 2), not an account's status.
+    Accessible.role: Accessible.Graphic
+    Accessible.name: JamiStrings.oneToOnePresenceOnline
+    Accessible.ignored: status !== 1 && status !== 2
+
     MaterialToolTip {
         visible: text !== "" && hoverHandler.hovered
         delay: Qt.styleHints.mousePressAndHoldInterval

@@ -208,6 +208,17 @@ Item {
             color: JamiQmlUtils.mainViewRectObj ? JamiQmlUtils.mainViewRectObj.baseColor : JamiTheme.globalBackgroundColor
             visible: root.inCallView
         }
+
+        // The chat background chosen in the appearance settings, over the conversation color.
+        ChatBackgroundGradient {
+            id: chatBackground
+            objectName: "chatBackground"
+
+            anchors.fill: parent
+
+            colors: UtilsAdapter.getChatBackgroundColors(UtilsAdapter.chatBackground, JamiTheme.darkTheme)
+        }
+
         Connections {
             target: CallAdapter
 
@@ -221,11 +232,21 @@ Item {
         }
 
         BackgroundGradient {
+            objectName: "chatViewHeaderGradient"
+
             anchors.top: parent.top
             anchors.left: parent.left
             anchors.right: parent.right
             height: JamiTheme.qwkTitleBarHeight + JamiTheme.sidePanelIslandsPadding * 2
             z: chatView.z + 1
+
+            // Fade the messages into the chat background, if one is chosen: its colors are
+            // painted where the gradient is opaque.
+            layer.enabled: chatBackground.painted
+            layer.effect: ChatBackgroundGradient {
+                colors: chatBackground.colors
+                area: Qt.rect(0, 0, container.width, container.height)
+            }
         }
 
         Item {

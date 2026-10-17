@@ -218,12 +218,14 @@ Control {
 
             Avatar {
                 id: userAvatar
+                objectName: "chatViewHeaderAvatar"
 
                 width: JamiTheme.iconButtonLarge
                 height: JamiTheme.iconButtonLarge
 
                 mode: convContext.isSwarm ? Avatar.Mode.Conversation : Avatar.Mode.Contact
-                showPresenceIndicator: false
+                presenceStatus: convContext.presence
+                showPresenceIndicator: convContext.isCoreDialog && convContext.presence > 0
             }
 
             ColumnLayout {
