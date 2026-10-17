@@ -1954,6 +1954,7 @@
     </message>
     <message>
         <location filename="../src/app/net/jami/Constants/JamiStrings.qml" line="1052"/>
+        <location filename="../src/app/net/jami/Constants/JamiStrings.qml" line="1056"/>
         <source>Default</source>
         <translation>По умолчанию</translation>
     </message>
@@ -4186,6 +4187,66 @@ When ready, scan the QR code.</source>
         <location filename="../src/app/net/jami/Constants/JamiStrings.qml" line="1054"/>
         <source>Normalize background image contrast</source>
         <translation>Нормализовать контраст фонового изображения</translation>
+    </message>
+    <message>
+        <location filename="../src/app/net/jami/Constants/JamiStrings.qml" line="1055"/>
+        <source>Chat background</source>
+        <translation>Фон чата</translation>
+    </message>
+    <message>
+        <location filename="../src/app/net/jami/Constants/JamiStrings.qml" line="1057"/>
+        <source>Custom color</source>
+        <translation>Свой цвет</translation>
+    </message>
+    <message>
+        <location filename="../src/app/net/jami/Constants/JamiStrings.qml" line="1058"/>
+        <source>Sky</source>
+        <translation>Небо</translation>
+    </message>
+    <message>
+        <location filename="../src/app/net/jami/Constants/JamiStrings.qml" line="1059"/>
+        <source>Mint</source>
+        <translation>Мята</translation>
+    </message>
+    <message>
+        <location filename="../src/app/net/jami/Constants/JamiStrings.qml" line="1060"/>
+        <source>Sand</source>
+        <translation>Песок</translation>
+    </message>
+    <message>
+        <location filename="../src/app/net/jami/Constants/JamiStrings.qml" line="1061"/>
+        <source>Rose</source>
+        <translation>Роза</translation>
+    </message>
+    <message>
+        <location filename="../src/app/net/jami/Constants/JamiStrings.qml" line="1062"/>
+        <source>Lavender</source>
+        <translation>Лаванда</translation>
+    </message>
+    <message>
+        <location filename="../src/app/net/jami/Constants/JamiStrings.qml" line="1063"/>
+        <source>Slate</source>
+        <translation>Серый</translation>
+    </message>
+    <message>
+        <location filename="../src/app/net/jami/Constants/JamiStrings.qml" line="1064"/>
+        <source>Sunrise</source>
+        <translation>Рассвет</translation>
+    </message>
+    <message>
+        <location filename="../src/app/net/jami/Constants/JamiStrings.qml" line="1065"/>
+        <source>Ocean</source>
+        <translation>Океан</translation>
+    </message>
+    <message>
+        <location filename="../src/app/net/jami/Constants/JamiStrings.qml" line="1066"/>
+        <source>Meadow</source>
+        <translation>Луг</translation>
+    </message>
+    <message>
+        <location filename="../src/app/net/jami/Constants/JamiStrings.qml" line="1067"/>
+        <source>Dusk</source>
+        <translation>Сумерки</translation>
     </message>
     <message>
         <location filename="../src/app/net/jami/Constants/JamiStrings.qml" line="1066"/>

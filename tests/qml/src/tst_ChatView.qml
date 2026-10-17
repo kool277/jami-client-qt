@@ -72,6 +72,27 @@ TestWrapper {
                     CurrentConversation.title = "Name B"
                     tryCompare(titleLabel, "eText", "Name B", 1000)
                 }
+
+                function test_paintsTheChatBackgroundChosenInTheSettings() {
+                    const chatBackground = findChild(uut, "chatBackground")
+                    const headerGradient = findChild(uut, "chatViewHeaderGradient")
+
+                    // By default, the conversation colour shows through.
+                    UtilsAdapter.setToDefault(Settings.Key.ChatBackground)
+                    verify(!chatBackground.painted)
+                    verify(!headerGradient.layer.enabled)
+
+                    // The messages fade under the header into the chosen background.
+                    UtilsAdapter.setAppValue(Settings.Key.ChatBackground, "ocean")
+                    verify(chatBackground.painted)
+                    compare(chatBackground.colors[0].toString(), JamiTheme.darkTheme ? "#0e2a3a" : "#cde8f6")
+                    compare(chatBackground.colors[1].toString(), JamiTheme.darkTheme ? "#211c3e" : "#d9d4f5")
+                    verify(headerGradient.layer.enabled)
+
+                    UtilsAdapter.setToDefault(Settings.Key.ChatBackground)
+                    verify(!chatBackground.painted)
+                    verify(!headerGradient.layer.enabled)
+                }
             }
         }
     }

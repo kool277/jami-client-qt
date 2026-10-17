@@ -212,6 +212,32 @@ SettingsPageBase {
         }
 
         ColumnLayout {
+            id: chatBackgroundSettings
+
+            width: parent.width
+            spacing: JamiTheme.settingsCategorySpacing
+
+            Text {
+
+                Layout.alignment: Qt.AlignLeft
+                Layout.preferredWidth: parent.width
+
+                text: JamiStrings.chatBackground
+                color: JamiTheme.textColor
+                horizontalAlignment: Text.AlignLeft
+                verticalAlignment: Text.AlignVCenter
+                wrapMode: Text.WordWrap
+
+                font.pixelSize: JamiTheme.settingsTitlePixelSize
+                font.kerning: true
+            }
+
+            ChatBackgroundPicker {
+                Layout.preferredWidth: parent.width
+            }
+        }
+
+        ColumnLayout {
             id: zoomSettings
 
             width: parent.width
@@ -325,6 +351,7 @@ SettingsPageBase {
             onClicked: {
                 zoomSpinBox.value = Math.round(UtilsAdapter.getDefault(Settings.BaseZoom) * 100.0);
                 UtilsAdapter.setToDefault(Settings.Key.AppTheme);
+                UtilsAdapter.setToDefault(Settings.Key.ChatBackground);
                 UtilsAdapter.setToDefault(Settings.Key.BaseZoom);
                 AccountSettingsManager.resetToDefaults();
                 themeSettings.isComplete();

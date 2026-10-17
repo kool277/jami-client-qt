@@ -1954,6 +1954,7 @@
     </message>
     <message>
         <location filename="../src/app/net/jami/Constants/JamiStrings.qml" line="1052"/>
+        <location filename="../src/app/net/jami/Constants/JamiStrings.qml" line="1056"/>
         <source>Default</source>
         <translation>Standart</translation>
     </message>
@@ -4187,6 +4188,66 @@ Tayyor boʻlgach, QR-kodni skanerlang.</translation>
         <location filename="../src/app/net/jami/Constants/JamiStrings.qml" line="1054"/>
         <source>Normalize background image contrast</source>
         <translation>Fon rasmi kontrastini meʼyorlashtirish</translation>
+    </message>
+    <message>
+        <location filename="../src/app/net/jami/Constants/JamiStrings.qml" line="1055"/>
+        <source>Chat background</source>
+        <translation>Suhbat foni</translation>
+    </message>
+    <message>
+        <location filename="../src/app/net/jami/Constants/JamiStrings.qml" line="1057"/>
+        <source>Custom color</source>
+        <translation>Ixtiyoriy rang</translation>
+    </message>
+    <message>
+        <location filename="../src/app/net/jami/Constants/JamiStrings.qml" line="1058"/>
+        <source>Sky</source>
+        <translation>Osmon</translation>
+    </message>
+    <message>
+        <location filename="../src/app/net/jami/Constants/JamiStrings.qml" line="1059"/>
+        <source>Mint</source>
+        <translation>Yalpiz</translation>
+    </message>
+    <message>
+        <location filename="../src/app/net/jami/Constants/JamiStrings.qml" line="1060"/>
+        <source>Sand</source>
+        <translation>Qum</translation>
+    </message>
+    <message>
+        <location filename="../src/app/net/jami/Constants/JamiStrings.qml" line="1061"/>
+        <source>Rose</source>
+        <translation>Atirgul</translation>
+    </message>
+    <message>
+        <location filename="../src/app/net/jami/Constants/JamiStrings.qml" line="1062"/>
+        <source>Lavender</source>
+        <translation>Lavanda</translation>
+    </message>
+    <message>
+        <location filename="../src/app/net/jami/Constants/JamiStrings.qml" line="1063"/>
+        <source>Slate</source>
+        <translation>Kulrang</translation>
+    </message>
+    <message>
+        <location filename="../src/app/net/jami/Constants/JamiStrings.qml" line="1064"/>
+        <source>Sunrise</source>
+        <translation>Tong</translation>
+    </message>
+    <message>
+        <location filename="../src/app/net/jami/Constants/JamiStrings.qml" line="1065"/>
+        <source>Ocean</source>
+        <translation>Okean</translation>
+    </message>
+    <message>
+        <location filename="../src/app/net/jami/Constants/JamiStrings.qml" line="1066"/>
+        <source>Meadow</source>
+        <translation>Oʻtloq</translation>
+    </message>
+    <message>
+        <location filename="../src/app/net/jami/Constants/JamiStrings.qml" line="1067"/>
+        <source>Dusk</source>
+        <translation>Shom</translation>
     </message>
     <message>
         <location filename="../src/app/net/jami/Constants/JamiStrings.qml" line="1066"/>

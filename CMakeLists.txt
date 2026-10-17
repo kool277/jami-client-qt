@@ -666,6 +666,7 @@ set(COMMON_HEADERS
   ${APP_SRC_DIR}/screensaver.h
   ${APP_SRC_DIR}/systemtray.h
   ${APP_SRC_DIR}/appsettingsmanager.h
+  ${APP_SRC_DIR}/chatbackground.h
   ${APP_SRC_DIR}/accountsettingsmanager.h
   ${APP_SRC_DIR}/lrcinstance.h
   ${APP_SRC_DIR}/selectablelistproxymodel.h
