@@ -139,6 +139,7 @@ CurrentConversation::updateData()
                 qInfo() << "Contact not found: " << e.what();
             }
         set_isContact(isContact);
+        set_presence(accInfo.conversationModel->dataForItem(convInfo, ConversationList::Role::Presence).toInt());
         set_botOwner(botOwner);
 
         if (convInfo.mode == conversation::Mode::ONE_TO_ONE) {

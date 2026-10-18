@@ -30,6 +30,8 @@ Item {
     id: root
 
     property alias imageId: avatar.imageId
+    property alias presenceStatus: avatar.presenceStatus
+    property alias showPresenceIndicator: avatar.showPresenceIndicator
 
     property bool newItem: false
     property bool readOnly: false

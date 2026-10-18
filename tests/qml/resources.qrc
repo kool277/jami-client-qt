@@ -29,5 +29,7 @@
         <file>src/tst_ConversationsAdapter.qml</file>
         <file>src/tst_LocationSharing.qml</file>
         <file>src/tst_NewMaterialTextField.qml</file>
+        <file>src/tst_ChatBackgroundPicker.qml</file>
+        <file>src/tst_ChatBackgroundGradient.qml</file>
     </qresource>
 </RCC>

@@ -53,6 +53,8 @@ class CurrentConversation final : public QObject
     QML_PROPERTY(bool, inCall)
     QML_PROPERTY(bool, isTemporary)
     QML_PROPERTY(bool, isContact)
+    // The peers' presence as the conversation list shows it, 0 while they are all offline.
+    QML_PROPERTY(int, presence)
     QML_PROPERTY(bool, allMessagesLoaded)
     QML_PROPERTY(QString, modeString)
     QML_PROPERTY(QVariantList, activeCalls)
