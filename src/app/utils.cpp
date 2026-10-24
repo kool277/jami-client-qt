@@ -131,6 +131,13 @@ Utils::dataPrefix(const QString& installPrefix, const QString& applicationDirPat
     return installPrefix;
 }
 
+QString
+Utils::daemonResourceDir(const QString& installPrefix, const QString& applicationDirPath)
+{
+    auto prefix = dataPrefix(installPrefix, applicationDirPath);
+    return prefix == installPrefix ? QString() : prefix + "/jami";
+}
+
 bool
 Utils::CreateStartupLink(const std::wstring& wstrAppName)
 {

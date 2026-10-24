@@ -1236,6 +1236,16 @@ elseif (NOT APPLE)
     DESTINATION "${JAMI_DATA_PREFIX}/${PROJECT_NAME}"
     PERMISSIONS OWNER_READ OWNER_WRITE GROUP_READ WORLD_READ) # 644
 
+  # The daemon's ringtones: built in, the daemon does not install them
+  # (EXCLUDE_FROM_ALL). In an extracted release archive, MainApplication
+  # points the daemon at them.
+  if(ENABLE_LIBWRAP)
+    install(
+      DIRECTORY "${DAEMON_DIR}/ringtones/"
+      DESTINATION "${JAMI_DATA_PREFIX}/${PROJECT_NAME}/ringtones"
+      FILES_MATCHING PATTERN "*.opus")
+  endif()
+
   # Adjust JAMI_DATA_PREFIX for snap package.
   #   (This must come after all 'install' commands that refer to
   #    JAMI_DATA_PREFIX; the following value is not meant to be used

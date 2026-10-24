@@ -59,6 +59,11 @@ void testVulkanSupport();
 // otherwise the share/ directory next to applicationDirPath, as in an
 // extracted release archive, when it has jami/; otherwise installPrefix.
 QString dataPrefix(const QString& installPrefix, const QString& applicationDirPath);
+// The daemon's data directory (its ringtones) when Jami runs from an
+// extracted release archive: jami/ in dataPrefix() when that is not
+// installPrefix. Empty otherwise: the daemon then uses the directory it was
+// built for.
+QString daemonResourceDir(const QString& installPrefix, const QString& applicationDirPath);
 bool CreateStartupLink(const std::wstring& wstrAppName);
 void DeleteStartupLink(const std::wstring& wstrAppName);
 bool CreateLink(LPCWSTR lpszPathObj, LPCWSTR lpszPathLink);
