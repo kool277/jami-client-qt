@@ -28,6 +28,7 @@
 #include "apiserver.h"
 #include "apitokenmanager.h"
 #include "apitokenlistmodel.h"
+#include "utils.h"
 
 #include <QWKQuick/qwkquickglobal.h>
 
@@ -46,6 +47,10 @@
 
 #include <QDir>
 #include <QStandardPaths>
+
+#if defined(Q_OS_LINUX) && defined(ENABLE_LIBWRAP) && defined(JAMI_INSTALL_PREFIX)
+#include <configurationmanager_interface.h>
+#endif
 
 #ifdef Q_OS_WIN
 #include <windows.h>
@@ -365,6 +370,13 @@ MainApplication::handleUriAction(const QString& arg)
 void
 MainApplication::initLrc(const QString& downloadUrl, ConnectivityMonitor* cm, bool debugMode, bool muteDaemon)
 {
+#if defined(Q_OS_LINUX) && defined(ENABLE_LIBWRAP) && defined(JAMI_INSTALL_PREFIX)
+    // The daemon looks for its ringtones under the prefix it was built for;
+    // run from an extracted release archive, Jami has them next to its binary.
+    auto resourceDir = Utils::daemonResourceDir(JAMI_INSTALL_PREFIX, QCoreApplication::applicationDirPath());
+    if (!resourceDir.isEmpty())
+        libjami::setResourceDirPath(resourceDir.toStdString());
+#endif
     lrcInstance_.reset(new LRCInstance(downloadUrl, cm, debugMode, muteDaemon));
     lrcInstance_->subscribeToDebugReceived();
 }

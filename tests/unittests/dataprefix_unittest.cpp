@@ -66,3 +66,20 @@ TEST_F(DataPrefixFixture, KeepsTheInstallPrefixWhenNeitherHasJamiData)
 
     EXPECT_EQ(Utils::dataPrefix(installPrefix, applicationDir), installPrefix);
 }
+
+TEST_F(DataPrefixFixture, LeavesTheDaemonItsOwnDataDirectoryWhenInstalled)
+{
+    makeDir("build/install/share/jami");
+    makeDir("home/jami/share/jami");
+
+    EXPECT_TRUE(Utils::daemonResourceDir(installPrefix, applicationDir).isEmpty());
+}
+
+TEST_F(DataPrefixFixture, GivesTheDaemonTheDataDirectoryNextToTheBinary)
+{
+    // An extracted release archive: the daemon's ringtones are in share/jami
+    // next to bin/, not under the prefix it was built for.
+    makeDir("home/jami/share/jami");
+
+    EXPECT_EQ(Utils::daemonResourceDir(installPrefix, applicationDir), root.filePath("home/jami/share/jami"));
+}
