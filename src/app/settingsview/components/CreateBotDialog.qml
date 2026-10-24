@@ -193,7 +193,7 @@ BaseModalDialog {
                         selectByKeyboard: true
 
                         selectionColor: JamiTheme.tintedBlue
-                        selectedTextColor: JamiTheme.textColor
+                        selectedTextColor: JamiTheme.contentColorOn(selectionColor)
 
                         background: Rectangle {
                             radius: height / 2

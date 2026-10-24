@@ -41,6 +41,7 @@ TextField {
     font.pointSize: fontSize
     font.kerning: true
     color: JamiTheme.textColor
+    selectedTextColor: JamiTheme.contentColorOn(selectionColor)
 
     placeholderTextColor: JamiTheme.placeholderTextColor
 

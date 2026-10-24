@@ -90,7 +90,7 @@ AbstractButton {
         if (root.down)
             return root.pressedColor;
         if (!root.secondary)
-            return "white";
+            return JamiTheme.contentColorOn(root.color);
         return root.color;
     }
 

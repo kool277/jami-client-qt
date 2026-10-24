@@ -428,7 +428,7 @@ Popup {
                         Layout.alignment: Qt.AlignCenter
                         preferredSize: btnSize
 
-                        imageColor: JamiTheme.whiteColor
+                        imageColor: JamiTheme.chatViewFooterSendButtonImgColor
                         imageContainerHeight: 25
                         imageContainerWidth: 25
 

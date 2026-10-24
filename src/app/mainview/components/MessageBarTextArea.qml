@@ -159,6 +159,7 @@ JamiFlickable {
         font.pointSize: JamiTheme.textFontSize + 2
         font.hintingPreference: Font.PreferNoHinting
         color: JamiTheme.textColor
+        selectedTextColor: JamiTheme.contentColorOn(selectionColor)
         wrapMode: TextEdit.Wrap
         selectByMouse: !showPreview
         textFormat: showPreview ? TextEdit.RichText : TextEdit.PlainText

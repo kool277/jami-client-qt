@@ -36,8 +36,8 @@ Item {
     property alias padding: lineEdit.padding
     property alias echoMode: lineEdit.echoMode
     property string inactiveColor: JamiTheme.tintedBlue
-    property string hoveredColor: "#03B9E9"
-    property string selectedColor: "#03B9E9"
+    property string hoveredColor: JamiTheme.lightTintedBlue
+    property string selectedColor: JamiTheme.lightTintedBlue
     property string validatedColor: "#009980"
     property string errorColor: "#CC0022"
     property alias selectByMouse: lineEdit.selectByMouse
@@ -59,9 +59,9 @@ Item {
     property string secondIco: ""
     property string thirdIco: ""
 
-    property string firstIcoColor: "#005699"
-    property string secondIcoColor: "#005699"
-    property string thirdIcoColor: "#005699"
+    property string firstIcoColor: JamiTheme.darkTintedBlue
+    property string secondIcoColor: JamiTheme.darkTintedBlue
+    property string thirdIcoColor: JamiTheme.darkTintedBlue
 
     property bool readOnly: false
     property bool editable: false

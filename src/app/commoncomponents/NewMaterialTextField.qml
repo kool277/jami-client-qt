@@ -153,6 +153,7 @@ ColumnLayout {
                 horizontalAlignment: TextInput.AlignLeft
 
                 color: JamiTheme.textColor
+                selectedTextColor: JamiTheme.contentColorOn(selectionColor)
                 font.family: root.textFieldFontFamily
                 font.pixelSize: root.textFieldFontPixelSize
 

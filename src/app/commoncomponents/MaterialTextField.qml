@@ -51,6 +51,7 @@ TextField {
     property color baseColor: JamiTheme.primaryForegroundColor
     property color textColor: JamiTheme.textColor
     color: textColor
+    selectedTextColor: JamiTheme.contentColorOn(selectionColor)
     placeholderTextColor: !isActive ? JamiTheme.transparentColor : root.color
 
     property alias infoTipText: infoTip.text

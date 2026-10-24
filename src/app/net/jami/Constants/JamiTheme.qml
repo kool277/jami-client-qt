@@ -57,13 +57,13 @@ Item {
     property color blackColor: "#000000"
     property color redColor: "red"
     property color whiteColor: "#ffffff"
-    property color darkBlueGreen: "#123F4A"
+    property color darkBlueGreen: "#333300"
     property color darkGreyColor: "#272727"
     property color darkGreyColorOpacityFade: "#cc000000" // 80%
     property color darkGreyColorOpacity: "#be272727" // 77%
     property color tintedBlue: darkTheme ? lightTintedBlue : darkTintedBlue
-    property color lightTintedBlue: "#03B9E9"
-    property color darkTintedBlue: "#005699"
+    property color lightTintedBlue: "#CACA73"
+    property color darkTintedBlue: "#666600"
     property color sysColor: "#F0EFEF"
     property real chatViewBackgroundTintOpacity: 0.1
 
@@ -73,11 +73,11 @@ Item {
     property color backgroundColor: darkTheme ? bgSideBarDarkMode_ : lightGrey_
     property color secondaryBackgroundColor: darkTheme ? bgDarkMode_ : whiteColor
     property color greyBorderColor: "#333"
-    property color selectionBlue: darkTheme ? "#0061a5" : "#109ede"
+    property color selectionBlue: "#666600"
 
     property color hoverColor: darkTheme ? "#4d4d4d" : "#DEDEDE"
     property color pressColor: darkTheme ? "#777" : "#c0c0c0"
-    property color selectedColor: darkTheme ? "#0e81c5" : "#e0e0e0"
+    property color selectedColor: darkTheme ? "#666600" : "#e0e0e0"
     property color smartListHoveredColor: darkTheme ? "#4d4d4d" : "#dedede"
     property color smartListSelectedColor: darkTheme ? "#4d4d4d" : "#dedede"
     property color editBackgroundColor: darkTheme ? "#373737" : lightGrey_
@@ -93,7 +93,7 @@ Item {
     // Side panel
     property color presenceGreen: "#4cd964"
     property color notificationRed: "#ff3b30"
-    property color notificationBlue: "#31b7ff"
+    property color notificationBlue: "#CACA73"
     property color unPresenceOrange: "orange"
     property color draftTextColor: "#cf5300"
     property color selectedTabColor: primaryForegroundColor
@@ -110,11 +110,11 @@ Item {
     property color invertedHoveredButtonColor: Qt.rgba(0, 0, 0, 0.6)
     property color invertedNormalButtonColor: Qt.rgba(0, 0, 0, 0.75)
 
-    property color editLineColor: "#03b9e9"
+    property color editLineColor: darkTheme ? "#CACA73" : "#808000"
     property color buttonTintedBlue: tintedBlue
-    property color buttonTintedBlueHovered: darkTheme ? "#039CC4" : "#0071c9"
-    property color buttonTintedBlueInternalHover: Qt.rgba(0, 86, 153, 0.2)
-    property color buttonTintedBluePressed: "#0071c9"
+    property color buttonTintedBlueHovered: darkTheme ? "#DCDCA3" : "#4D4D00"
+    property color buttonTintedBlueInternalHover: rgba256(102, 102, 0, 20)
+    property color buttonTintedBluePressed: darkTheme ? "#808000" : "#333300"
     property color buttonTintedGrey: darkTheme ? "#555" : "#999"
     property color buttonTintedGreyHovered: "#777"
     property color buttonTintedGreyPressed: "#777"
@@ -131,13 +131,20 @@ Item {
     property color declineRedTransparent: rgba256(204, 0, 34, 56)
     property color mosaicButtonNormalColor: "#272727"
     property color whiteColorTransparent: rgba256(255, 255, 255, 50)
-    property color raiseHandColor: rgba256(0, 184, 255, 77)
+    property color raiseHandColor: rgba256(202, 202, 115, 77)
 
     property color primaryTextColor: darkTheme ? "black" : "white"
+
+    // Text and icons drawn on a button filled with fillColor: white, but dark
+    // on the light fills of the dark theme, such as its accent color.
+    function contentColorOn(fillColor) {
+        return darkTheme && !UtilsAdapter.luma(fillColor) ? primaryTextColor : whiteColor;
+    }
+
     property color secAndTertiTextColor: buttonTintedBlue
-    property color secondaryButtonBorderColor: darkTheme ? "#1D5F70" : "#A3C2DA"
+    property color secondaryButtonBorderColor: darkTheme ? "#666600" : "#DCDCA3"
     property color secondaryButtonHoveredBorderColor: tintedBlue
-    property color secAndTertiHoveredBackgroundColor: darkTheme ? "#123F4A" : "#E5EEF5"
+    property color secAndTertiHoveredBackgroundColor: darkTheme ? "#333300" : "#EDEDCF"
     property color closeButtonLighterBlack: "#4c4c4c"
 
     property color redButtonColor: darkTheme ? "#FA2E30" : "#CC0022"
@@ -152,27 +159,27 @@ Item {
     property color buttonCallDarkGreen: "#00796B"
 
     // Jami switch
-    property color switchBackgroundCheckedColor: "#8dbaea"
-    property color switchBackgroundColor: darkTheme ? "#626262" : "#E5EEF5"
-    property color switchBackgroundBorderColor: darkTheme ? "#4d4d4d" : "#A3C2DA"
+    property color switchBackgroundCheckedColor: "#CACA73"
+    property color switchBackgroundColor: darkTheme ? "#626262" : "#EDEDCF"
+    property color switchBackgroundBorderColor: darkTheme ? "#4d4d4d" : "#DCDCA3"
     property color switchHandleColor: darkTheme ? "#2B2B2B" : whiteColor
     property color switchHandleCheckedColor: tintedBlue
     property color switchHandleBorderColor: tintedBlue
-    property color switchHandleCheckedBorderColor: darkTheme ? "#0071c9" : "#005699"
+    property color switchHandleCheckedBorderColor: darkTheme ? "#808000" : "#666600"
 
     // Combobox
     property color comboBoxBackgroundColor: darkTheme ? editBackgroundColor : selectedColor
-    property color comboboxBorderColorActive: darkTheme ? "#03B9E9" : "#005699"
-    property color comboboxBorderColor: darkTheme ? "#1D5F70" : "#A3C2DA"
-    property color comboboxIconColor: darkTheme ? "#03B9E9" : "#005699"
-    property color comboboxBackgroundColorHovered: darkTheme ? "#123F4A" : "#E5EEF5"
-    property color comboboxTextColor: darkTheme ? "#03B9E9" : "#005699"
+    property color comboboxBorderColorActive: darkTheme ? "#CACA73" : "#666600"
+    property color comboboxBorderColor: darkTheme ? "#666600" : "#DCDCA3"
+    property color comboboxIconColor: darkTheme ? "#CACA73" : "#666600"
+    property color comboboxBackgroundColorHovered: darkTheme ? "#333300" : "#EDEDCF"
+    property color comboboxTextColor: darkTheme ? "#CACA73" : "#666600"
     property color comboboxTextColorHovered: tintedBlue
     property color accountComboBoxBackgroundColor: darkTheme ? "#333333" : lightGrey_
 
     // Spinbox
     property color spinboxBackgroundColor: darkTheme ? editBackgroundColor : selectedColor
-    property color spinboxBorderColor: darkTheme ? "#1D5F70" : "#A3C2DA"
+    property color spinboxBorderColor: darkTheme ? "#666600" : "#DCDCA3"
 
     //RecordBox
     property color screenshotButtonColor: "#CC0022"
@@ -200,19 +207,19 @@ Item {
 
     // Wizard / account manager
     property color accountCreationOtherStepColor: "grey"
-    property color accountCreationCurrentStepColor: "#28b1ed"
-    property color wizardBlueButtons: "#28b1ed"
+    property color accountCreationCurrentStepColor: tintedBlue
+    property color wizardBlueButtons: tintedBlue
     property color wizardGreenColor: "#aed581"
     property color requiredFieldColor: "#ff1f62"
     property color requiredFieldBackgroundColor: "#fee4e9"
-    property color customizePhotoColor: "#0B03DB"
-    property color customizePhotoHoveredColor: "#3B35E2"
+    property color customizePhotoColor: "#666600"
+    property color customizePhotoHoveredColor: "#4D4D00"
     property color customizeRectangleColor: darkTheme ? "#333333" : "#F0EFEF"
 
     // Misc
     property color recordIconColor: "#dc2719"
-    property color successLabelColor: "#2b5084"
-    property color rubberBandSelectionBlue: "steelblue"
+    property color successLabelColor: tintedBlue
+    property color rubberBandSelectionBlue: "#808000"
     property color screenSelectionBorderColor: raiseHandColor
     property color separationLine: darkTheme ? selectedColor : backgroundColor
 
@@ -224,8 +231,8 @@ Item {
     property color blockOrangeTransparency: rgba256(232, 92, 36, 56)
 
     // Chatview
-    property color jamiLightBlue: darkTheme ? "#003b4e" : Qt.rgba(59, 193, 211, 0.3)
-    property color jamiDarkBlue: darkTheme ? "#28b1ed" : "#003b4e"
+    property color jamiLightBlue: darkTheme ? "#333300" : rgba256(202, 202, 115, 30)
+    property color jamiDarkBlue: darkTheme ? "#CACA73" : "#333300"
     property color chatviewTextColor: darkTheme ? "#f0f0f0" : "#000000"
     property color chatviewTextColorLight: "#f0f0f0"
     property color chatviewTextColorDark: "#353637"
@@ -237,7 +244,7 @@ Item {
     property color messageReplyColor: darkTheme ? "#bbb" : "#A7A7A7"
     property color messageOutTxtColor: "#000000"
     property color messageInBgColor: darkTheme ? "#303030" : "#e5e5e5"
-    property color messageOutBgColor: darkTheme ? "#616161" : "#005699"
+    property color messageOutBgColor: darkTheme ? "#616161" : "#666600"
     property color messageInTxtColor: "#FFFFFF"
     property color fileOutTimestampColor: darkTheme ? "#eee" : "#555"
     property color fileInTimestampColor: darkTheme ? "#999" : "#555"
@@ -265,7 +272,7 @@ Item {
     property color chatViewFooterImgDisableColor: darkTheme ? "#4d4d4d" : "#cbcbcb"
     property color showMoreButtonOpenColor: darkTheme ? "#4d4d4d" : "#e5e5e5"
     property color chatViewFooterSeparateLineColor: darkTheme ? "#5c5c5c" : "#929292"
-    property color chatViewFooterSendButtonColor: darkTheme ? "#03B9E9" : "#005699"
+    property color chatViewFooterSendButtonColor: darkTheme ? "#CACA73" : "#666600"
     property color chatViewFooterSendButtonDisableColor: darkTheme ? "#191a1c" : "#f0f0f1"
     property color chatViewFooterSendButtonImgColor: darkTheme ? blackColor : whiteColor
     property color chatViewFooterSendButtonImgColorDisable: darkTheme ? "#4d4d4d" : "#cbcbcb"
@@ -277,7 +284,7 @@ Item {
     // mapPosition
     property color mapButtonsOverlayColor: darkTheme ? "#000000" : "#f0f0f0"
     property color mapButtonColor: darkTheme ? "#f0f0f0" : "#000000"
-    property color sharePositionIndicatorColor: darkTheme ? "#03B9E9" : "#005699"
+    property color sharePositionIndicatorColor: darkTheme ? "#CACA73" : "#666600"
     property color sharedPositionIndicatorColor: darkTheme ? whiteColor : blackColor
 
     // EmojiReact
@@ -291,7 +298,7 @@ Item {
     property int emojiPushButtonSize: 30
     property int emojiMargins: 16
     property color emojiReactBubbleBgColor: darkTheme ? darkGreyColor : whiteColor
-    property color emojiReactPushButtonColor: darkTheme ? "#bbb" : "#003b4e"
+    property color emojiReactPushButtonColor: darkTheme ? "#bbb" : "#333300"
     property real messageOptionTextFontSize: calcSize(15)
     property int emojiPickerWidth: 400
     property int emojiPickerHeight: 425
@@ -470,7 +477,7 @@ Item {
     property real photoPopupRadius: 5
 
     //MessagesResearch
-    property color blueLinkColor: darkTheme ? "#3366BB" : "#0645AD"
+    property color blueLinkColor: darkTheme ? "#CACA73" : "#666600"
     property real jumpToFontSize: calcSize(13)
     property real searchbarSize: 200
 
@@ -540,8 +547,8 @@ Item {
     property color redDotIndicatorColor: "#CC0022"
 
     // MainView
-    property color rectColor: darkTheme ? blackColor : "#e5eef5"
-    property color welcomeText: darkTheme ? "#0071c9" : "#002B4A"
+    property color rectColor: darkTheme ? blackColor : "#EDEDCF"
+    property color welcomeText: darkTheme ? "#CACA73" : "#333300"
     property real illustrationWidth: 212
     property real illustrationHeight: 244
 
@@ -579,8 +586,8 @@ Item {
     property color welcomeBlockColor: darkTheme ? "#A8000000" : "#A8EEEEEE"
 
     // WizardView Advanced Account Settings
-    property color lightBlue_: darkTheme ? "#03B9E9" : "#e5eef5"
-    property color shadowColorBlue: Qt.rgba(0, 0.34, 0.6, 0.16)
+    property color lightBlue_: darkTheme ? "#CACA73" : "#EDEDCF"
+    property color shadowColorBlue: Qt.rgba(0.4, 0.4, 0, 0.16)
     property real passwordEditOpenedBoxWidth: 425
     property real passwordEditClosedBoxWidth: 330
     property real passwordEditOpenedBoxHeight: 380
@@ -599,14 +606,14 @@ Item {
     // InfoBox
     property real infoBoxTitleFontSize: calcSize(13)
     property real infoBoxDescFontSize: calcSize(12)
-    property color infoRectangleColor: JamiTheme.darkTheme ? "#143842" : "#e5eef5"
+    property color infoRectangleColor: JamiTheme.darkTheme ? "#333300" : "#EDEDCF"
 
     // Tipbox
     property real tipBoxWidth: 200
     property real tipBoxTitleFontSize: calcSize(13)
     property real tipBoxContentFontSize: calcSize(12)
     property color tipBoxBackgroundColor: darkTheme ? blackColor : whiteColor
-    property color tipBoxBorderColor: darkTheme ? "#123F4A" : "#A3C2DA"
+    property color tipBoxBorderColor: darkTheme ? "#333300" : "#DCDCA3"
     property color tooltipBackgroundColor: darkTheme ? "#66000000" : "#c4272727"
     property color tooltipShortCutBackgroundColor: darkTheme ? blackColor : "#2c2c2c"
     property color tooltipShortCutTextColor: "#a7a7a7"
@@ -629,7 +636,7 @@ Item {
 
     // PasswordTextEdit
     property color passwordEyeIconColor: "#5d5d5d"
-    property color passwordBaselineColor: darkTheme ? "#6e6e6e" : "#9fbfd9"
+    property color passwordBaselineColor: darkTheme ? "#6e6e6e" : "#DCDCA3"
 
     // MaterialButton
     property real buttontextPadding: 10
@@ -679,23 +686,23 @@ Item {
     property int settingsListViewsSpacing: 10
 
     // Link Device
-    property color pinBackgroundColor: "#D6E4EF"
+    property color pinBackgroundColor: "#EDEDCF"
 
     // MaterialRadioButton
     property int radioImageSize: 30
     property color radioBackgroundColor: darkTheme ? "#303030" : "#F0EFEF"
-    property color radioBorderColor: darkTheme ? "#03B9E9" : "#005699"
+    property color radioBorderColor: darkTheme ? "#CACA73" : "#666600"
     property color lightThemeBackgroundColor: JamiTheme.whiteColor
-    property color lightThemeCheckedColor: "#005699"
-    property color lightThemeBorderColor: "#005699"
+    property color lightThemeCheckedColor: "#666600"
+    property color lightThemeBorderColor: "#666600"
     property color darkThemeBackgroundColor: JamiTheme.darkTheme ? JamiTheme.blackColor : JamiTheme.bgDarkMode_
-    property color darkThemeCheckedColor: "#03B9E9"
-    property color darkThemeBorderColor: "#03B9E9"
+    property color darkThemeCheckedColor: "#CACA73"
+    property color darkThemeBorderColor: "#CACA73"
     property color radioCheckedColor: darkTheme ? darkThemeCheckedColor : lightThemeCheckedColor
 
     // Donation campaign
-    property color donationButtonTextColor: "#005699"
-    property color donationBackgroundColor: "#D5E4EF"
+    property color donationButtonTextColor: "#666600"
+    property color donationBackgroundColor: "#EDEDCF"
     property string donationUrl: "https://jami.net/donate/"
 
     //Connection monitoring
@@ -709,7 +716,7 @@ Item {
 
     //Chat setting page
     property color chatSettingButtonBackgroundColor: darkTheme ? "#303030" : "#F0EFEF"
-    property color chatSettingButtonBorderColor: darkTheme ? "#03B9E9" : "#005699"
+    property color chatSettingButtonBorderColor: darkTheme ? "#CACA73" : "#666600"
     property color chatSettingButtonTextColor: textColor
 
     // QWK

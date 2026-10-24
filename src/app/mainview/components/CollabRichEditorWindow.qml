@@ -241,7 +241,7 @@ Window {
             text: fmtBtn.glyph
             horizontalAlignment: Text.AlignHCenter
             verticalAlignment: Text.AlignVCenter
-            color: fmtBtn.active ? "white" : JamiTheme.textColor
+            color: fmtBtn.active ? JamiTheme.contentColorOn(JamiTheme.tintedBlue) : JamiTheme.textColor
             font.pointSize: JamiTheme.textFontSize
             font.bold: fmtBtn.glyph === "B"
             font.italic: fmtBtn.glyph === "I"
@@ -725,6 +725,7 @@ Window {
                     font.pointSize: JamiTheme.title2FontSize
                     font.bold: true
                     color: JamiTheme.textColor
+                    selectedTextColor: JamiTheme.contentColorOn(selectionColor)
                     placeholderText: qsTr("Document name")
                     onAccepted: titleContainer.commitRename()
                     onActiveFocusChanged: {
@@ -1011,6 +1012,7 @@ Window {
                         focus: true
                         font.pointSize: root.baseFontSize
                         color: JamiTheme.textColor
+                        selectedTextColor: JamiTheme.contentColorOn(selectionColor)
                         placeholderText: qsTr("Start typing…")
                         background: Rectangle {
                             color: JamiTheme.secondaryBackgroundColor
@@ -1273,6 +1275,7 @@ Window {
                             selectByMouse: true
                             font.pointSize: root.baseFontSize
                             color: JamiTheme.faddedFontColor
+                            selectedTextColor: JamiTheme.contentColorOn(selectionColor)
                             text: root.previewText
                             background: Rectangle {
                                 color: JamiTheme.secondaryBackgroundColor
@@ -1306,6 +1309,7 @@ Window {
                             font.family: "monospace"
                             font.pointSize: JamiTheme.smallFontSize
                             color: JamiTheme.textColor
+                            selectedTextColor: JamiTheme.contentColorOn(selectionColor)
                             // Asked again after every change to the document, so
                             // it is watched live rather than sampled when opened.
                             text: {
@@ -1380,6 +1384,7 @@ Window {
                 Layout.preferredWidth: 320
                 placeholderText: "https://"
                 color: JamiTheme.textColor
+                selectedTextColor: JamiTheme.contentColorOn(selectionColor)
                 onAccepted: applyLinkButton.clicked()
                 Component.onCompleted: forceActiveFocus()
             }

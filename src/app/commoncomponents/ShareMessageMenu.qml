@@ -220,6 +220,7 @@ BaseContextMenu {
                     font.pointSize: JamiTheme.textFontSize + 2
 
                     color: JamiTheme.textColor
+                    selectedTextColor: JamiTheme.contentColorOn(selectionColor)
 
                     wrapMode: Text.WrapAtWordBoundaryOrAnywhere
 

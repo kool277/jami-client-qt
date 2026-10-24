@@ -184,6 +184,7 @@ ListView {
                             color: JamiTheme.messageInBgColor
                         }
                         color: JamiTheme.textColor
+                        selectedTextColor: JamiTheme.contentColorOn(selectionColor)
                         Layout.fillWidth: true
                         wrapMode: Text.Wrap
                         Layout.rightMargin: 10

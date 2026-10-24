@@ -180,7 +180,7 @@ FocusScope {
         horizontalOffset: 3.0
         verticalOffset: 3.0
         radius: 16
-        color: Qt.rgba(0, 0.34, 0.6, 0.16)
+        color: JamiTheme.shadowColorBlue
         source: rect
         transparentBorder: true
         samples: radius + 1
