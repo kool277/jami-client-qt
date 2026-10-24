@@ -54,6 +54,11 @@ void remove_argument(char** argv, int& argc, const std::string& arg_to_remove, s
 void testVulkanSupport();
 
 // App System
+// The directory holding Jami's jami/ data directory (translations, desktop
+// file) on Linux: installPrefix, the compiled-in one, when it has jami/;
+// otherwise the share/ directory next to applicationDirPath, as in an
+// extracted release archive, when it has jami/; otherwise installPrefix.
+QString dataPrefix(const QString& installPrefix, const QString& applicationDirPath);
 bool CreateStartupLink(const std::wstring& wstrAppName);
 void DeleteStartupLink(const std::wstring& wstrAppName);
 bool CreateLink(LPCWSTR lpszPathObj, LPCWSTR lpszPathLink);
