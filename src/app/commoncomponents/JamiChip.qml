@@ -63,10 +63,10 @@ Control {
             verticalAlignment: Text.AlignVCenter
             color: {
                 if (root.filledChip) {
-                    return JamiTheme.whiteColor;
+                    return JamiTheme.contentColorOn(root.color);
                 } else if (root.outlinedChip) {
                     if (root.hovered || root.activeFocus) {
-                        return JamiTheme.whiteColor;
+                        return JamiTheme.contentColorOn(root.color);
                     } else {
                         return root.color;
                     }
@@ -91,10 +91,10 @@ Control {
             icon.source: root.iconSource
             icon.color: {
                 if (root.filledChip) {
-                    return JamiTheme.whiteColor;
+                    return JamiTheme.contentColorOn(root.color);
                 } else if (root.outlinedChip) {
                     if (root.hovered || root.activeFocus) {
-                        return JamiTheme.whiteColor;
+                        return JamiTheme.contentColorOn(root.color);
                     } else {
                         return root.color;
                     }

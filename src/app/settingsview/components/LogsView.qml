@@ -199,6 +199,7 @@ Window {
 
                 readOnly: true
                 color: JamiTheme.textColor
+                selectedTextColor: JamiTheme.contentColorOn(selectionColor)
                 wrapMode: TextArea.Wrap
                 selectByMouse: true
 

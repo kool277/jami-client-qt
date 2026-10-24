@@ -265,8 +265,8 @@ ItemDelegate {
                     size: 16
                     count: root.documentUpdateCount
                     animate: index === 0
-                    badgeColor: "#D5F6FF"
-                    badgeTextColor: "#00AEEF"
+                    badgeColor: "#EDEDCF"
+                    badgeTextColor: "#666600"
                 }
 
                 BadgeNotifier {

@@ -20,11 +20,17 @@ function init_emoji_picker(dark) {
 }
 
 /* exported prepare_to_show */
-function prepare_to_show(dark) {
+function prepare_to_show(dark, accentColor, hoverColor) {
     emojiPicker.setTheme(dark ? "dark" : "light")
 
+    // Use Jami's accent color instead of the picker's own blue.
+    const style = emojiPicker.pickerEl.style
+    style.setProperty('--blue-color', accentColor)
+    style.setProperty('--dark-search-focus-border-color', accentColor)
+    style.setProperty('--hover-color', hoverColor)
+
     if (emojiPicker.hideInProgress) {
-        setTimeout(() => prepare_to_show(dark), 100)
+        setTimeout(() => prepare_to_show(dark, accentColor, hoverColor), 100)
         return
     }
 

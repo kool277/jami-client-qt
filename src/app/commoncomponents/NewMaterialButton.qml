@@ -63,14 +63,14 @@ T.Button {
     icon.color: {
         if (root.enabled && (root.hovered || (root.activeFocus && validFocusReason))) {
             if (root.filledButton)
-                JamiTheme.whiteColor;
+                JamiTheme.contentColorOn(root.color);
             else if (root.outlinedButton)
-                JamiTheme.whiteColor;
+                JamiTheme.contentColorOn(root.color);
             else if (root.textButton)
-                JamiTheme.whiteColor;
+                JamiTheme.contentColorOn(root.color);
         } else {
             if (root.filledButton)
-                JamiTheme.whiteColor;
+                JamiTheme.contentColorOn(root.color);
             else if (root.outlinedButton)
                 root.color;
             else if (root.textButton)
@@ -96,14 +96,14 @@ T.Button {
         color: {
             if (root.enabled && (root.hovered || (root.activeFocus && validFocusReason))) {
                 if (root.filledButton)
-                    JamiTheme.whiteColor;
+                    JamiTheme.contentColorOn(root.color);
                 else if (root.outlinedButton)
-                    JamiTheme.whiteColor;
+                    JamiTheme.contentColorOn(root.color);
                 else if (root.textButton)
-                    JamiTheme.whiteColor;
+                    JamiTheme.contentColorOn(root.color);
             } else {
                 if (root.filledButton)
-                    JamiTheme.whiteColor;
+                    JamiTheme.contentColorOn(root.color);
                 else if (root.outlinedButton)
                     root.color;
                 else if (root.textButton)

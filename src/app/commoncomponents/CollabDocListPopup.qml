@@ -162,7 +162,7 @@ BaseModalDialog {
                             radius: width / 2
                             border.color: JamiTheme.backgroundColor
                             border.width: 1
-                            color: "#00B7FF"
+                            color: JamiTheme.tintedBlue
                         }
                     }
 

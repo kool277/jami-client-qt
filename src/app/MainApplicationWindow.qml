@@ -17,6 +17,7 @@
 import QtQuick
 import QtQuick.Window
 import QtQuick.Controls
+import QtQuick.Controls.Universal
 import QtQuick.Layouts
 import Qt5Compat.GraphicalEffects
 import net.jami.Models 1.1
@@ -42,6 +43,9 @@ Window {
     property bool isRTL: UtilsAdapter.isRTL
     LayoutMirroring.enabled: isRTL
     LayoutMirroring.childrenInherit: isRTL
+    // The style's accent (busy indicators, progress bars, text selection)
+    // follows the theme; its configuration file only sets the light one.
+    Universal.accent: JamiTheme.tintedBlue
     property var raiseWhenCalled: AppSettingsManager.getValue(Settings.RaiseWhenCalled)
 
     function openCollabEditor(conversationId, documentId, documentName, peerName, documentAuthor) {

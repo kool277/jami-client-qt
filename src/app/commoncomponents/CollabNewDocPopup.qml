@@ -75,6 +75,7 @@ BaseModalDialog {
             Layout.rightMargin: JamiTheme.preferredMarginSize
             placeholderText: qsTr("Untitled document")
             color: JamiTheme.textColor
+            selectedTextColor: JamiTheme.contentColorOn(selectionColor)
             font.pointSize: JamiTheme.textFontSize
             selectByMouse: true
             background: Rectangle {

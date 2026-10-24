@@ -120,9 +120,9 @@ ApplicationWindow {
                     Layout.bottomMargin: preferredMargin
                     visible: connectionFailed
 
-                    property color hoveredColor: "#0e81c5"
-                    property color pressedColor: "#273261"
-                    property color normalColor: "#00aaff"
+                    property color hoveredColor: "#4D4D00"
+                    property color pressedColor: "#333300"
+                    property color normalColor: "#666600"
 
                     contentItem: Item {
                         Rectangle {

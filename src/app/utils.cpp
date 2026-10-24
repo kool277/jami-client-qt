@@ -27,6 +27,7 @@
 #include <QBitmap>
 #include <QErrorMessage>
 #include <QFile>
+#include <QFileInfo>
 #include <QMessageBox>
 #include <QObject>
 #include <QPainter>
@@ -119,6 +120,17 @@ Utils::testVulkanSupport()
 #endif
 }
 
+QString
+Utils::dataPrefix(const QString& installPrefix, const QString& applicationDirPath)
+{
+    if (QFileInfo(installPrefix + "/jami").isDir())
+        return installPrefix;
+    auto beside = QDir::cleanPath(applicationDirPath + "/../share");
+    if (QFileInfo(beside + "/jami").isDir())
+        return beside;
+    return installPrefix;
+}
+
 bool
 Utils::CreateStartupLink(const std::wstring& wstrAppName)
 {
@@ -155,7 +167,7 @@ Utils::CreateStartupLink(const std::wstring& wstrAppName)
      */
 
 #ifdef JAMI_INSTALL_PREFIX
-    desktopPath = JAMI_INSTALL_PREFIX;
+    desktopPath = Utils::dataPrefix(JAMI_INSTALL_PREFIX, qApp->applicationDirPath());
     desktopPath += "/jami/net.jami.Jami.desktop";
 #else
     desktopPath = "share/jami/net.jami.Jami.desktop";

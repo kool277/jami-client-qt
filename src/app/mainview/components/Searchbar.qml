@@ -104,6 +104,7 @@ Rectangle {
             bottomPadding: 0
 
             color: JamiTheme.chatviewTextColor
+            selectedTextColor: JamiTheme.contentColorOn(selectionColor)
 
             placeholderText: JamiStrings.search
             placeholderTextColor: JamiTheme.chatviewTextColor

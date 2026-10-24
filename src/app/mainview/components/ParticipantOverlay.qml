@@ -352,7 +352,7 @@ Item {
             PushButton {
                 id: isRaiseHandIndicator
                 source: JamiResources.hand_black_24dp_svg
-                imageColor: JamiTheme.whiteColor
+                imageColor: JamiTheme.blackColor
                 preferredSize: shapeHeight
                 visible: root.participantHandIsRaised
                 anchors.right: participantRect.right
