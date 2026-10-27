@@ -20,6 +20,7 @@
 #include "chatbackground.h"
 #include "lrcinstance.h"
 #include "systemtray.h"
+#include "translationscript.h"
 #include "utils.h"
 #include "version_info.h"
 #include "global.h"
@@ -623,7 +624,7 @@ UtilsAdapter::supportedLang()
         auto match = regex.match(f);
         auto captured = match.capturedTexts();
         if (captured.size() == 2) {
-            auto nativeName = QLocale(captured[1]).nativeLanguageName();
+            auto nativeName = inTranslationScript(QLocale(captured[1]).nativeLanguageName(), captured[1]);
             if (nativeName.isEmpty()) // If a locale doesn't have any nativeLanguageName, ignore it.
                 continue;
             // Avoid to show potential duplicates.
