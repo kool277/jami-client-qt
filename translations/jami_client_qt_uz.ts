@@ -680,7 +680,7 @@
     <message>
         <location filename="../src/app/net/jami/Constants/JamiStrings.qml" line="85"/>
         <source>Try again</source>
-        <translation>Qayta urinish</translation>
+        <translation>Qaytadan urinish</translation>
     </message>
     <message>
         <location filename="../src/app/net/jami/Constants/JamiStrings.qml" line="87"/>
@@ -1550,7 +1550,7 @@
     <message>
         <location filename="../src/app/net/jami/Constants/JamiStrings.qml" line="333"/>
         <source>Conference resolution</source>
-        <translation>Konferensiya aniqligi</translation>
+        <translation>Konferensiya video aniqligi</translation>
     </message>
     <message>
         <location filename="../src/app/net/jami/Constants/JamiStrings.qml" line="334"/>
@@ -1996,7 +1996,7 @@
     <message>
         <location filename="../src/app/net/jami/Constants/JamiStrings.qml" line="1080"/>
         <source>View</source>
-        <translation>Koʻrish</translation>
+        <translation>Koʻrinish</translation>
     </message>
     <message>
         <location filename="../src/app/net/jami/Constants/JamiStrings.qml" line="1081"/>
@@ -2386,7 +2386,7 @@ Agar shunday boʻlsa, hisobga faqat tasodifiy yaratilgan 40 belgili identifikato
         <source>Hello,
 Do you want to join the conversation?</source>
         <translation>Salom,
-Suhbatga qoʻshilasizmi?</translation>
+Suhbatga qoʻshilishni xohlaysizmi?</translation>
     </message>
     <message>
         <location filename="../src/app/net/jami/Constants/JamiStrings.qml" line="971"/>
@@ -2730,7 +2730,7 @@ to connect to synchronize the conversation…</source>
     <message>
         <location filename="../src/app/net/jami/Constants/JamiStrings.qml" line="367"/>
         <source>More options</source>
-        <translation>Boshqa imkoniyatlar</translation>
+        <translation>Boshqa amallar</translation>
     </message>
     <message>
         <location filename="../src/app/net/jami/Constants/JamiStrings.qml" line="368"/>
@@ -2896,7 +2896,7 @@ to connect to synchronize the conversation…</source>
     <message>
         <location filename="../src/app/net/jami/Constants/JamiStrings.qml" line="397"/>
         <source>Confirm action</source>
-        <translation>Amalni tasdiqlang</translation>
+        <translation>Amalni tasdiqlash</translation>
     </message>
     <message>
         <location filename="../src/app/net/jami/Constants/JamiStrings.qml" line="398"/>
@@ -2946,7 +2946,7 @@ to connect to synchronize the conversation…</source>
     <message>
         <location filename="../src/app/net/jami/Constants/JamiStrings.qml" line="408"/>
         <source>Contact details</source>
-        <translation>Kontakt tafsilotlari</translation>
+        <translation>Kontakt maʼlumotlari</translation>
     </message>
     <message>
         <location filename="../src/app/net/jami/Constants/JamiStrings.qml" line="412"/>
@@ -2991,7 +2991,7 @@ to connect to synchronize the conversation…</source>
     <message>
         <location filename="../src/app/net/jami/Constants/JamiStrings.qml" line="420"/>
         <source>Share screen area</source>
-        <translation>Ekran qismini ulashish</translation>
+        <translation>Ekranning bir qismini ulashish</translation>
     </message>
     <message>
         <location filename="../src/app/net/jami/Constants/JamiStrings.qml" line="421"/>
@@ -3783,7 +3783,7 @@ Boshqa aʼzolarning joylashuvini olish imkoniyati saqlanib qoladi.</translation>
     <message>
         <location filename="../src/app/net/jami/Constants/JamiStrings.qml" line="731"/>
         <source>Copied to clipboard.</source>
-        <translation>Almashish buferiga nusxalandi.</translation>
+        <translation>Almashuv buferiga nusxalandi.</translation>
     </message>
     <message>
         <location filename="../src/app/net/jami/Constants/JamiStrings.qml" line="732"/>
@@ -4927,7 +4927,7 @@ Iltimos, yangi qurilmada importni tasdiqlang.</translation>
     <message>
         <location filename="../src/app/net/jami/Constants/JamiStrings.qml" line="860"/>
         <source>Welcome to Jami</source>
-        <translation>Jami ilovasiga xush kelibsiz</translation>
+        <translation>Jami dasturiga xush kelibsiz</translation>
     </message>
     <message>
         <location filename="../src/app/net/jami/Constants/JamiStrings.qml" line="864"/>
@@ -5962,7 +5962,7 @@ Iltimos, yangi qurilmada importni tasdiqlang.</translation>
     <message>
         <location filename="../src/app/utils.cpp" line="605"/>
         <source>This is a list of people who have made a significant investment of time, with useful results, into Jami. Any such contributors who want to be added to the list should contact us.</source>
-        <translation>Bu Jami loyihasiga koʻp vaqt sarflab, foydali natijalarga erishgan odamlar roʻyxati. Roʻyxatga qoʻshilishni istagan bunday hissa qoʻshuvchilar biz bilan bogʻlanishi mumkin.</translation>
+        <translation>Bu roʻyxatda Jami rivojiga koʻp vaqt sarflagan va foydali natijalarga erishgan insonlar keltirilgan. Roʻyxatga qoʻshilishni istagan hissa qoʻshuvchilar biz bilan bogʻlanishlari mumkin.</translation>
     </message>
     <message>
         <location filename="../src/app/linkdevicemodel.cpp" line="63"/>
@@ -6074,7 +6074,7 @@ Iltimos, yangi qurilmada importni tasdiqlang.</translation>
     <message>
         <location filename="../src/app/tipsmodel.cpp" line="89"/>
         <source>The choice of the name Jami was inspired by the Swahili word “jamii”, which means “community” as a noun and “together” as an adverb.</source>
-        <translation>Jami nomi suaxili tilidagi «jamii» soʻzidan ilhomlanib tanlangan. Bu soʻz ot sifatida «hamjamiyat», ravish sifatida esa «birgalikda» degan maʼnoni anglatadi.</translation>
+        <translation>Jami nomi suaxili tilidagi “jamii” soʻzidan ilhomlanib tanlangan; u ot sifatida “jamiyat”, ravish sifatida esa “birgalikda” degan maʼnoni bildiradi.</translation>
     </message>
     <message>
         <location filename="../src/app/tipsmodel.cpp" line="93"/>
@@ -6104,17 +6104,17 @@ Iltimos, yangi qurilmada importni tasdiqlang.</translation>
     <message>
         <location filename="../src/app/tipsmodel.cpp" line="101"/>
         <source>Jami is distributed and your account is only stored locally on your device. If you lose your password or your local account data, you WILL NOT be able to recover your account if you did not back it up earlier.</source>
-        <translation>Jami taqsimlangan tizim boʻlib, hisobingiz faqat qurilmangizda saqlanadi. Agar parolingizni yoki hisobingizning mahalliy maʼlumotlarini yoʻqotsangiz va oldindan zaxira nusxa yaratmagan boʻlsangiz, hisobingizni tiklay OLMAYSIZ.</translation>
+        <translation>Jami taqsimlangan tizim boʻlib, hisobingiz faqat qurilmangizda mahalliy saqlanadi. Agar parolingizni yoki mahalliy hisob maʼlumotlaringizni yoʻqotsangiz va avval zaxira nusxa yaratmagan boʻlsangiz, hisobingizni TIKLAY OLMAYSIZ.</translation>
     </message>
     <message>
         <location filename="../src/app/tipsmodel.cpp" line="106"/>
         <source>Can I make a conference call?</source>
-        <translation>Konferensiya qoʻngʻirogʻini amalga oshirsam boʻladimi?</translation>
+        <translation>Konferensiya qoʻngʻirogʻini amalga oshira olamanmi?</translation>
     </message>
     <message>
         <location filename="../src/app/tipsmodel.cpp" line="107"/>
         <source>In a call, you can click on “Invite members” to add a contact to a call.</source>
-        <translation>Qoʻngʻiroq paytida kontaktni qoʻngʻiroqqa qoʻshish uchun «Aʼzolarni taklif qilish» tugmasini bosishingiz mumkin.</translation>
+        <translation>Qoʻngʻiroq paytida kontaktni qoʻngʻiroqqa qoʻshish uchun “Aʼzolarni taklif qilish” tugmasini bosishingiz mumkin.</translation>
     </message>
     <message>
         <location filename="../src/app/tipsmodel.cpp" line="110"/>
@@ -6124,17 +6124,17 @@ Iltimos, yangi qurilmada importni tasdiqlang.</translation>
     <message>
         <location filename="../src/app/tipsmodel.cpp" line="112"/>
         <source>A Jami account is an asymmetric encryption key. Your account is identified by a Jami ID, which is a fingerprint of your public key.</source>
-        <translation>Jami hisobi — bu asimmetrik shifrlash kaliti. Hisobingiz ochiq kalitingizning barmoq izi boʻlgan Jami ID orqali aniqlanadi.</translation>
+        <translation>Jami hisobi — bu asimmetrik shifrlash kaliti. Hisobingiz Jami ID orqali aniqlanadi; Jami ID ochiq kalitingizning barmoq izidir.</translation>
     </message>
     <message>
         <location filename="../src/app/tipsmodel.cpp" line="116"/>
         <source>What information do I need to provide to create a Jami account?</source>
-        <translation>Jami hisobini yaratish uchun qanday maʼlumotlarni berishim kerak?</translation>
+        <translation>Jami hisobini yaratish uchun qanday maʼlumotlarni taqdim etishim kerak?</translation>
     </message>
     <message>
         <location filename="../src/app/tipsmodel.cpp" line="118"/>
         <source>When you create a new Jami account, you do not have to provide any private information like an email, address, or phone number.</source>
-        <translation>Yangi Jami hisobini yaratishda elektron pochta, manzil yoki telefon raqami kabi shaxsiy maʼlumotlarni berishingiz shart emas.</translation>
+        <translation>Yangi Jami hisobini yaratishda elektron pochta, manzil yoki telefon raqami kabi hech qanday shaxsiy maʼlumotni taqdim etishingiz shart emas.</translation>
     </message>
     <message>
         <location filename="../src/app/tipsmodel.cpp" line="122"/>
@@ -6144,7 +6144,7 @@ Iltimos, yangi qurilmada importni tasdiqlang.</translation>
     <message>
         <location filename="../src/app/tipsmodel.cpp" line="124"/>
         <source>With Jami, your account is stored in a directory on your device. The password is only used to encrypt your account in order to protect you from someone who has physical access to your device.</source>
-        <translation>Jami ilovasida hisobingiz qurilmangizdagi jildda saqlanadi. Parol faqat qurilmangizga jismoniy kira oladigan odamlardan himoya qilish uchun hisobingizni shifrlashda ishlatiladi.</translation>
+        <translation>Jami ishlatganingizda hisobingiz qurilmangizdagi jildda saqlanadi. Parol faqat hisobingizni shifrlash uchun ishlatiladi — bu sizni qurilmangizga jismoniy kirish imkoniga ega boʻlgan shaxslardan himoya qiladi.</translation>
     </message>
     <message>
         <location filename="../src/app/tipsmodel.cpp" line="129"/>
@@ -6154,7 +6154,7 @@ Iltimos, yangi qurilmada importni tasdiqlang.</translation>
     <message>
         <location filename="../src/app/tipsmodel.cpp" line="141"/>
         <source>Your account is only stored on your own devices. If you delete your account from all of your devices, the account is gone forever and you CANNOT recover it.</source>
-        <translation>Hisobingiz faqat oʻz qurilmalaringizda saqlanadi. Agar hisobingizni barcha qurilmalaringizdan oʻchirsangiz, u butunlay yoʻqoladi va uni tiklay OLMAYSIZ.</translation>
+        <translation>Hisobingiz faqat oʻz qurilmalaringizda saqlanadi. Agar hisobingizni barcha qurilmalaringizdan oʻchirsangiz, u butunlay yoʻqoladi va uni TIKLAY OLMAYSIZ.</translation>
     </message>
     <message>
         <location filename="../src/app/tipsmodel.cpp" line="145"/>
@@ -6164,12 +6164,12 @@ Iltimos, yangi qurilmada importni tasdiqlang.</translation>
     <message>
         <location filename="../src/app/tipsmodel.cpp" line="147"/>
         <source>Yes, you can link your account from the settings, or you can import your backup on another device.</source>
-        <translation>Ha, hisobingizni sozlamalardan bogʻlashingiz yoki zaxira nusxangizni boshqa qurilmaga import qilishingiz mumkin.</translation>
+        <translation>Ha, hisobingizni sozlamalar orqali bogʻlashingiz yoki zaxira nusxangizni boshqa qurilmaga import qilishingiz mumkin.</translation>
     </message>
     <message>
         <location filename="../src/app/tipsmodel.cpp" line="131"/>
         <source>The most permanent, secure identifier is your Jami ID, but since these are difficult to use for some people, you also have the option of registering a username.</source>
-        <translation>Eng doimiy va xavfsiz identifikator — bu Jami ID, ammo baʼzilar uchun undan foydalanish qiyin boʻlgani sababli, foydalanuvchi nomini roʻyxatdan oʻtkazish imkoniyati ham bor.</translation>
+        <translation>Eng doimiy va xavfsiz identifikator — bu sizning Jami ID; ammo baʼzi odamlar uchun undan foydalanish qiyin boʻlgani sababli, foydalanuvchi nomini roʻyxatdan oʻtkazish imkoniyati ham mavjud.</translation>
     </message>
     <message>
         <location filename="../src/app/tipsmodel.cpp" line="135"/>

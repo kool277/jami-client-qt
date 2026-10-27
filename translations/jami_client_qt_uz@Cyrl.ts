@@ -680,7 +680,7 @@
     <message>
         <location filename="../src/app/net/jami/Constants/JamiStrings.qml" line="85"/>
         <source>Try again</source>
-        <translation>Қайта уриниш</translation>
+        <translation>Қайтадан уриниш</translation>
     </message>
     <message>
         <location filename="../src/app/net/jami/Constants/JamiStrings.qml" line="87"/>
@@ -1550,7 +1550,7 @@
     <message>
         <location filename="../src/app/net/jami/Constants/JamiStrings.qml" line="333"/>
         <source>Conference resolution</source>
-        <translation>Конференция аниқлиги</translation>
+        <translation>Конференция видео аниқлиги</translation>
     </message>
     <message>
         <location filename="../src/app/net/jami/Constants/JamiStrings.qml" line="334"/>
@@ -1996,7 +1996,7 @@
     <message>
         <location filename="../src/app/net/jami/Constants/JamiStrings.qml" line="1080"/>
         <source>View</source>
-        <translation>Кўриш</translation>
+        <translation>Кўриниш</translation>
     </message>
     <message>
         <location filename="../src/app/net/jami/Constants/JamiStrings.qml" line="1081"/>
@@ -2386,7 +2386,7 @@ If yes, only a randomly generated 40-character identifier will be assigned to th
         <source>Hello,
 Do you want to join the conversation?</source>
         <translation>Салом,
-Суҳбатга қўшиласизми?</translation>
+Суҳбатга қўшилишни хоҳлайсизми?</translation>
     </message>
     <message>
         <location filename="../src/app/net/jami/Constants/JamiStrings.qml" line="971"/>
@@ -2730,7 +2730,7 @@ to connect to synchronize the conversation…</source>
     <message>
         <location filename="../src/app/net/jami/Constants/JamiStrings.qml" line="367"/>
         <source>More options</source>
-        <translation>Бошқа имкониятлар</translation>
+        <translation>Бошқа амаллар</translation>
     </message>
     <message>
         <location filename="../src/app/net/jami/Constants/JamiStrings.qml" line="368"/>
@@ -2896,7 +2896,7 @@ to connect to synchronize the conversation…</source>
     <message>
         <location filename="../src/app/net/jami/Constants/JamiStrings.qml" line="397"/>
         <source>Confirm action</source>
-        <translation>Амални тасдиқланг</translation>
+        <translation>Амални тасдиқлаш</translation>
     </message>
     <message>
         <location filename="../src/app/net/jami/Constants/JamiStrings.qml" line="398"/>
@@ -2946,7 +2946,7 @@ to connect to synchronize the conversation…</source>
     <message>
         <location filename="../src/app/net/jami/Constants/JamiStrings.qml" line="408"/>
         <source>Contact details</source>
-        <translation>Контакт тафсилотлари</translation>
+        <translation>Контакт маълумотлари</translation>
     </message>
     <message>
         <location filename="../src/app/net/jami/Constants/JamiStrings.qml" line="412"/>
@@ -2991,7 +2991,7 @@ to connect to synchronize the conversation…</source>
     <message>
         <location filename="../src/app/net/jami/Constants/JamiStrings.qml" line="420"/>
         <source>Share screen area</source>
-        <translation>Экран қисмини улашиш</translation>
+        <translation>Экраннинг бир қисмини улашиш</translation>
     </message>
     <message>
         <location filename="../src/app/net/jami/Constants/JamiStrings.qml" line="421"/>
@@ -3783,7 +3783,7 @@ The location of other members can still be received.</source>
     <message>
         <location filename="../src/app/net/jami/Constants/JamiStrings.qml" line="731"/>
         <source>Copied to clipboard.</source>
-        <translation>Алмашиш буферига нусхаланди.</translation>
+        <translation>Алмашув буферига нусхаланди.</translation>
     </message>
     <message>
         <location filename="../src/app/net/jami/Constants/JamiStrings.qml" line="732"/>
@@ -4927,7 +4927,7 @@ Please confirm the import on the new device.</source>
     <message>
         <location filename="../src/app/net/jami/Constants/JamiStrings.qml" line="860"/>
         <source>Welcome to Jami</source>
-        <translation>Jami иловасига хуш келибсиз</translation>
+        <translation>Jami дастурига хуш келибсиз</translation>
     </message>
     <message>
         <location filename="../src/app/net/jami/Constants/JamiStrings.qml" line="864"/>
@@ -5962,7 +5962,7 @@ Please confirm the import on the new device.</source>
     <message>
         <location filename="../src/app/utils.cpp" line="605"/>
         <source>This is a list of people who have made a significant investment of time, with useful results, into Jami. Any such contributors who want to be added to the list should contact us.</source>
-        <translation>Бу Jami лойиҳасига кўп вақт сарфлаб, фойдали натижаларга эришган одамлар рўйхати. Рўйхатга қўшилишни истаган бундай ҳисса қўшувчилар биз билан боғланиши мумкин.</translation>
+        <translation>Бу рўйхатда Jami ривожига кўп вақт сарфлаган ва фойдали натижаларга эришган инсонлар келтирилган. Рўйхатга қўшилишни истаган ҳисса қўшувчилар биз билан боғланишлари мумкин.</translation>
     </message>
     <message>
         <location filename="../src/app/linkdevicemodel.cpp" line="63"/>
@@ -6074,7 +6074,7 @@ Please confirm the import on the new device.</source>
     <message>
         <location filename="../src/app/tipsmodel.cpp" line="89"/>
         <source>The choice of the name Jami was inspired by the Swahili word “jamii”, which means “community” as a noun and “together” as an adverb.</source>
-        <translation>Jami номи суахили тилидаги «jamii» сўзидан илҳомланиб танланган. Бу сўз от сифатида «ҳамжамият», равиш сифатида эса «биргаликда» деган маънони англатади.</translation>
+        <translation>Jami номи суахили тилидаги “jamii” сўзидан илҳомланиб танланган; у от сифатида “жамият”, равиш сифатида эса “биргаликда” деган маънони билдиради.</translation>
     </message>
     <message>
         <location filename="../src/app/tipsmodel.cpp" line="93"/>
@@ -6104,17 +6104,17 @@ Please confirm the import on the new device.</source>
     <message>
         <location filename="../src/app/tipsmodel.cpp" line="101"/>
         <source>Jami is distributed and your account is only stored locally on your device. If you lose your password or your local account data, you WILL NOT be able to recover your account if you did not back it up earlier.</source>
-        <translation>Jami тақсимланган тизим бўлиб, ҳисобингиз фақат қурилмангизда сақланади. Агар паролингизни ёки ҳисобингизнинг маҳаллий маълумотларини йўқотсангиз ва олдиндан захира нусха яратмаган бўлсангиз, ҳисобингизни тиклай ОЛМАЙСИЗ.</translation>
+        <translation>Jami тақсимланган тизим бўлиб, ҳисобингиз фақат қурилмангизда маҳаллий сақланади. Агар паролингизни ёки маҳаллий ҳисоб маълумотларингизни йўқотсангиз ва аввал захира нусха яратмаган бўлсангиз, ҳисобингизни ТИКЛАЙ ОЛМАЙСИЗ.</translation>
     </message>
     <message>
         <location filename="../src/app/tipsmodel.cpp" line="106"/>
         <source>Can I make a conference call?</source>
-        <translation>Конференция қўнғироғини амалга оширсам бўладими?</translation>
+        <translation>Конференция қўнғироғини амалга ошира оламанми?</translation>
     </message>
     <message>
         <location filename="../src/app/tipsmodel.cpp" line="107"/>
         <source>In a call, you can click on “Invite members” to add a contact to a call.</source>
-        <translation>Қўнғироқ пайтида контактни қўнғироққа қўшиш учун «Аъзоларни таклиф қилиш» тугмасини босишингиз мумкин.</translation>
+        <translation>Қўнғироқ пайтида контактни қўнғироққа қўшиш учун “Аъзоларни таклиф қилиш” тугмасини босишингиз мумкин.</translation>
     </message>
     <message>
         <location filename="../src/app/tipsmodel.cpp" line="110"/>
@@ -6124,17 +6124,17 @@ Please confirm the import on the new device.</source>
     <message>
         <location filename="../src/app/tipsmodel.cpp" line="112"/>
         <source>A Jami account is an asymmetric encryption key. Your account is identified by a Jami ID, which is a fingerprint of your public key.</source>
-        <translation>Jami ҳисоби — бу асимметрик шифрлаш калити. Ҳисобингиз очиқ калитингизнинг бармоқ изи бўлган Jami ID орқали аниқланади.</translation>
+        <translation>Jami ҳисоби — бу асимметрик шифрлаш калити. Ҳисобингиз Jami ID орқали аниқланади; Jami ID очиқ калитингизнинг бармоқ изидир.</translation>
     </message>
     <message>
         <location filename="../src/app/tipsmodel.cpp" line="116"/>
         <source>What information do I need to provide to create a Jami account?</source>
-        <translation>Jami ҳисобини яратиш учун қандай маълумотларни беришим керак?</translation>
+        <translation>Jami ҳисобини яратиш учун қандай маълумотларни тақдим этишим керак?</translation>
     </message>
     <message>
         <location filename="../src/app/tipsmodel.cpp" line="118"/>
         <source>When you create a new Jami account, you do not have to provide any private information like an email, address, or phone number.</source>
-        <translation>Янги Jami ҳисобини яратишда электрон почта, манзил ёки телефон рақами каби шахсий маълумотларни беришингиз шарт эмас.</translation>
+        <translation>Янги Jami ҳисобини яратишда электрон почта, манзил ёки телефон рақами каби ҳеч қандай шахсий маълумотни тақдим этишингиз шарт эмас.</translation>
     </message>
     <message>
         <location filename="../src/app/tipsmodel.cpp" line="122"/>
@@ -6144,7 +6144,7 @@ Please confirm the import on the new device.</source>
     <message>
         <location filename="../src/app/tipsmodel.cpp" line="124"/>
         <source>With Jami, your account is stored in a directory on your device. The password is only used to encrypt your account in order to protect you from someone who has physical access to your device.</source>
-        <translation>Jami иловасида ҳисобингиз қурилмангиздаги жилдда сақланади. Пароль фақат қурилмангизга жисмоний кира оладиган одамлардан ҳимоя қилиш учун ҳисобингизни шифрлашда ишлатилади.</translation>
+        <translation>Jami ишлатганингизда ҳисобингиз қурилмангиздаги жилдда сақланади. Пароль фақат ҳисобингизни шифрлаш учун ишлатилади — бу сизни қурилмангизга жисмоний кириш имконига эга бўлган шахслардан ҳимоя қилади.</translation>
     </message>
     <message>
         <location filename="../src/app/tipsmodel.cpp" line="129"/>
@@ -6154,7 +6154,7 @@ Please confirm the import on the new device.</source>
     <message>
         <location filename="../src/app/tipsmodel.cpp" line="141"/>
         <source>Your account is only stored on your own devices. If you delete your account from all of your devices, the account is gone forever and you CANNOT recover it.</source>
-        <translation>Ҳисобингиз фақат ўз қурилмаларингизда сақланади. Агар ҳисобингизни барча қурилмаларингиздан ўчирсангиз, у бутунлай йўқолади ва уни тиклай ОЛМАЙСИЗ.</translation>
+        <translation>Ҳисобингиз фақат ўз қурилмаларингизда сақланади. Агар ҳисобингизни барча қурилмаларингиздан ўчирсангиз, у бутунлай йўқолади ва уни ТИКЛАЙ ОЛМАЙСИЗ.</translation>
     </message>
     <message>
         <location filename="../src/app/tipsmodel.cpp" line="145"/>
@@ -6164,12 +6164,12 @@ Please confirm the import on the new device.</source>
     <message>
         <location filename="../src/app/tipsmodel.cpp" line="147"/>
         <source>Yes, you can link your account from the settings, or you can import your backup on another device.</source>
-        <translation>Ҳа, ҳисобингизни созламалардан боғлашингиз ёки захира нусхангизни бошқа қурилмага импорт қилишингиз мумкин.</translation>
+        <translation>Ҳа, ҳисобингизни созламалар орқали боғлашингиз ёки захира нусхангизни бошқа қурилмага импорт қилишингиз мумкин.</translation>
     </message>
     <message>
         <location filename="../src/app/tipsmodel.cpp" line="131"/>
         <source>The most permanent, secure identifier is your Jami ID, but since these are difficult to use for some people, you also have the option of registering a username.</source>
-        <translation>Энг доимий ва хавфсиз идентификатор — бу Jami ID, аммо баъзилар учун ундан фойдаланиш қийин бўлгани сабабли, фойдаланувчи номини рўйхатдан ўтказиш имконияти ҳам бор.</translation>
+        <translation>Энг доимий ва хавфсиз идентификатор — бу сизнинг Jami ID; аммо баъзи одамлар учун ундан фойдаланиш қийин бўлгани сабабли, фойдаланувчи номини рўйхатдан ўтказиш имконияти ҳам мавжуд.</translation>
     </message>
     <message>
         <location filename="../src/app/tipsmodel.cpp" line="135"/>
