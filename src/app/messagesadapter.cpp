@@ -19,6 +19,7 @@
 
 #include "appsettingsmanager.h"
 #include "qtutils.h"
+#include "translationscript.h"
 #include "messageparser.h"
 #include "previewengine.h"
 
@@ -49,7 +50,8 @@ MessagesAdapter::MessagesAdapter(AppSettingsManager* settingsManager,
     , filteredMsgListModel_(new FilteredMsgListModel(this))
     , mediaInteractions_(std::make_unique<MessageListModel>(nullptr))
     , timestampTimer_(new QTimer(this))
-    , curLocale_(QLocale(settingsManager_->getLanguage()))
+    , curLanguage_(settingsManager_->getLanguage())
+    , curLocale_(QLocale(curLanguage_))
 {
     setObjectName(typeid(*this).name());
     updateDateFormats();
@@ -78,7 +80,8 @@ MessagesAdapter::MessagesAdapter(AppSettingsManager* settingsManager,
     connect(messageParser_, &MessageParser::linkInfoReady, this, &MessagesAdapter::onLinkInfoReady);
 
     connect(settingsManager_, &AppSettingsManager::localeChanged, this, [this]() {
-        curLocale_ = QLocale((settingsManager_->getLanguage()));
+        curLanguage_ = settingsManager_->getLanguage();
+        curLocale_ = QLocale(curLanguage_);
         updateDateFormats();
     });
     connect(timestampTimer_, &QTimer::timeout, this, &MessagesAdapter::timestampUpdated);
@@ -726,11 +729,11 @@ MessagesAdapter::getFormattedDay(const quint64 timestamp)
         return QObject::tr("Yesterday");
 
     if (daysDiff < 7 && daysDiff > 0)
-        return curLocale_.dayName(timestampDate.dayOfWeek());
+        return inTranslationScript(curLocale_.dayName(timestampDate.dayOfWeek()), curLanguage_);
 
     if (timestampDate.year() == currentDate.year())
-        return curLocale_.toString(timestampDate, dateFormatCurrentYear_);
-    return curLocale_.toString(timestampDate, dateFormatOtherYears_);
+        return inTranslationScript(curLocale_.toString(timestampDate, dateFormatCurrentYear_), curLanguage_);
+    return inTranslationScript(curLocale_.toString(timestampDate, dateFormatOtherYears_), curLanguage_);
 }
 
 void
