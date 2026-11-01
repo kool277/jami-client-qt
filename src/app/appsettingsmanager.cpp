@@ -93,7 +93,7 @@ void
 AppSettingsManager::loadTranslations()
 {
 #if defined(Q_OS_LINUX) && defined(JAMI_INSTALL_PREFIX)
-    QString appDir = Utils::dataPrefix(JAMI_INSTALL_PREFIX, QCoreApplication::applicationDirPath());
+    QString appDir = Utils::dataPrefix(JAMI_INSTALL_PREFIX, QCoreApplication::applicationFilePath());
 #elif defined(Q_OS_MACOS)
     QDir dir(qApp->applicationDirPath());
     dir.cdUp();
