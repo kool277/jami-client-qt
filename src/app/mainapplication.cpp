@@ -373,7 +373,7 @@ MainApplication::initLrc(const QString& downloadUrl, ConnectivityMonitor* cm, bo
 #if defined(Q_OS_LINUX) && defined(ENABLE_LIBWRAP) && defined(JAMI_INSTALL_PREFIX)
     // The daemon looks for its ringtones under the prefix it was built for;
     // run from an extracted release archive, Jami has them next to its binary.
-    auto resourceDir = Utils::daemonResourceDir(JAMI_INSTALL_PREFIX, QCoreApplication::applicationDirPath());
+    auto resourceDir = Utils::daemonResourceDir(JAMI_INSTALL_PREFIX, QCoreApplication::applicationFilePath());
     if (!resourceDir.isEmpty())
         libjami::setResourceDirPath(resourceDir.toStdString());
 #endif

@@ -605,7 +605,7 @@ QVariantMap
 UtilsAdapter::supportedLang()
 {
 #if defined(Q_OS_LINUX) && defined(JAMI_INSTALL_PREFIX)
-    QString appDir = Utils::dataPrefix(JAMI_INSTALL_PREFIX, qApp->applicationDirPath());
+    QString appDir = Utils::dataPrefix(JAMI_INSTALL_PREFIX, qApp->applicationFilePath());
 #elif defined(Q_OS_MACOS)
     QDir dir(qApp->applicationDirPath());
     dir.cdUp();

@@ -121,20 +121,23 @@ Utils::testVulkanSupport()
 }
 
 QString
-Utils::dataPrefix(const QString& installPrefix, const QString& applicationDirPath)
+Utils::dataPrefix(const QString& installPrefix, const QString& applicationFilePath)
 {
     if (QFileInfo(installPrefix + "/jami").isDir())
         return installPrefix;
-    auto beside = QDir::cleanPath(applicationDirPath + "/../share");
-    if (QFileInfo(beside + "/jami").isDir())
+    // Qt gives the path Jami was started by, which may be a symlink in another
+    // directory, such as /usr/local/bin/jami: look next to the binary itself.
+    auto binaryDir = QFileInfo(applicationFilePath).canonicalPath();
+    auto beside = QDir::cleanPath(binaryDir + "/../share");
+    if (!binaryDir.isEmpty() && QFileInfo(beside + "/jami").isDir())
         return beside;
     return installPrefix;
 }
 
 QString
-Utils::daemonResourceDir(const QString& installPrefix, const QString& applicationDirPath)
+Utils::daemonResourceDir(const QString& installPrefix, const QString& applicationFilePath)
 {
-    auto prefix = dataPrefix(installPrefix, applicationDirPath);
+    auto prefix = dataPrefix(installPrefix, applicationFilePath);
     return prefix == installPrefix ? QString() : prefix + "/jami";
 }
 
@@ -174,7 +177,7 @@ Utils::CreateStartupLink(const std::wstring& wstrAppName)
      */
 
 #ifdef JAMI_INSTALL_PREFIX
-    desktopPath = Utils::dataPrefix(JAMI_INSTALL_PREFIX, qApp->applicationDirPath());
+    desktopPath = Utils::dataPrefix(JAMI_INSTALL_PREFIX, qApp->applicationFilePath());
     desktopPath += "/jami/net.jami.Jami.desktop";
 #else
     desktopPath = "share/jami/net.jami.Jami.desktop";
