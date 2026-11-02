@@ -1,0 +1,394 @@
+# kool277 pipeline for the Windows and macOS apps of kool277/jami-client-qt,
+# on GitHub Actions: the Jenkins of kool277/jami (ci/jenkins) runs on Linux
+# and builds the Linux app (Jenkinsfile.kool277), while these need Windows
+# with MSVC and macOS with Xcode. Like the iOS pipeline of
+# kool277/jami-client-ios:
+# - pull requests and master: the app with the daemon (the submodule),
+#   packaged, then started once to check that it runs;
+# - a v* release tag, made by the platform release (ci/release in
+#   kool277/jami), whose message names that platform release
+#   ("Platform: v1.7.0"): the same with the daemon at the jami-daemon commit
+#   that the platform release pins, published to the GitHub release with
+#   ci/release/publish-release.sh of that platform release (see RELEASING.md
+#   in kool277/jami);
+# - run by hand (workflow_dispatch), a dry run of that release path: the
+#   daemon that a kool277/jami branch or tag pins, the packages kept as a
+#   workflow artifact for a week instead of being published.
+# Windows gets an MSI installer (JamiInstaller), macOS a disk image for
+# Apple Silicon. There is no signing identity here, so both systems warn
+# before the first start; the apps page of kool277/jami explains what to do.
+# Qt and the daemon's contrib are cached between runs.
+name: kool277-desktop
+
+on:
+  push:
+    branches: [master]
+    tags: ['v*']
+  pull_request:
+  workflow_dispatch:
+    inputs:
+      platform:
+        description: kool277/jami branch or tag whose jami-daemon pin and CI scripts to build with
+        default: main
+
+concurrency:
+  group: kool277-desktop-${{ github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+permissions:
+  contents: write
+
+env:
+  # TAG: a release tag, published. RELEASE: the release path, for a tag or a
+  # dry run.
+  TAG: ${{ startsWith(github.ref, 'refs/tags/v') }}
+  RELEASE: ${{ startsWith(github.ref, 'refs/tags/v') || github.event_name == 'workflow_dispatch' }}
+  # The Qt of the Linux build (ci/client-qt/Dockerfile in kool277/jami), from
+  # the Qt online repository through aqtinstall.
+  QT_VERSION: 6.12.0
+  AQT_VERSION: 3.3.0
+  QT_MODULES: qt5compat qtmultimedia qtpositioning qthttpserver qtwebsockets qtwebengine qtwebchannel qtimageformats qtshadertools qtpdf
+
+defaults:
+  run:
+    shell: bash
+
+jobs:
+  windows:
+    runs-on: windows-2025
+    timeout-minutes: 360
+    steps:
+      # Everything is fetched from public repositories: the token, which can
+      # write releases, only goes to the publishing step.
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+
+      - name: Platform release
+        if: env.RELEASE == 'true'
+        env:
+          PLATFORM_INPUT: ${{ inputs.platform }}
+        run: |
+          if [ "$TAG" = true ]; then
+            # actions/checkout leaves out the tag object: fetch it for its message.
+            git fetch -q --force --no-tags origin "+refs/tags/$GITHUB_REF_NAME:refs/tags/$GITHUB_REF_NAME"
+            platform=$(git for-each-ref --format='%(contents)' "refs/tags/$GITHUB_REF_NAME" | sed -n 's/^Platform: //p')
+            if [ -z "$platform" ]; then
+              echo "::error::The message of tag $GITHUB_REF_NAME names no platform release (no Platform: line)"
+              exit 1
+            fi
+          else
+            platform=$PLATFORM_INPUT
+          fi
+          echo "PLATFORM=$platform" >>"$GITHUB_ENV"
+          git clone -q --depth 1 --branch "$platform" https://github.com/kool277/jami.git "$RUNNER_TEMP/kool277"
+
+      - name: Sources
+        run: |
+          case $GITHUB_REF in
+          refs/tags/v*) version=$GITHUB_REF_NAME ;;
+          *) version=$([ "$RELEASE" = true ] && echo dry-run || echo build)-$(git rev-parse --short HEAD) ;;
+          esac
+          echo "VERSION=$version" >>"$GITHUB_ENV"
+          # The contribs' build trees nest deep under daemon/contrib/build.
+          git config --global core.longpaths true
+          git submodule update --init daemon 3rdparty/md4c 3rdparty/tidy-html5 3rdparty/zxing-cpp 3rdparty/hunspell
+          if [ "$RELEASE" = true ]; then
+            pin=$(git -C "$RUNNER_TEMP/kool277" ls-tree HEAD jami-daemon | awk '{print $3}')
+            git -C daemon fetch -q origin "$pin"
+            git -C daemon checkout -q "$pin"
+          fi
+          git -C daemon log --oneline -1
+
+      - uses: actions/setup-python@v7
+        with:
+          python-version: '3.12'
+
+      # What extras/scripts/install-deps-windows.ps1 installs and the runner
+      # lacks: the image already has Visual Studio 2022, the Windows SDK,
+      # MSYS2, Strawberry Perl, rustup, CMake and the WiX Toolset 3.
+      - name: Tools
+        shell: pwsh
+        run: |
+          python -m pip install -q pywinmake==0.5.11 meson==1.12.1 ninja==1.13.0 "aqtinstall==$env:AQT_VERSION"
+          if ($LASTEXITCODE -ne 0) { exit 1 }
+          # MSYS2 runs FFmpeg's configure and make (daemon/contrib/src/ffmpeg).
+          C:\msys64\usr\bin\bash.exe -lc "pacman -Sy --noconfirm --needed make gcc perl diffutils nasm"
+          if ($LASTEXITCODE -ne 0) { exit 1 }
+          Invoke-WebRequest http://www.tortall.net/projects/yasm/releases/yasm-1.3.0-win64.exe -OutFile C:\msys64\usr\bin\yasm.exe
+          # The MSBuild rules for the NASM and YASM sources of the
+          # ShiftMediaProject contribs (vpx, x264, gmp, nettle, gnutls).
+          foreach ($tool in @(@('VSNASM', '0.8'), @('VSYASM', '0.7'))) {
+            $name, $version = $tool
+            $dir = "$env:RUNNER_TEMP\$name"
+            Invoke-WebRequest "https://github.com/ShiftMediaProject/$name/releases/download/$version/$name.zip" -OutFile "$dir.zip"
+            Expand-Archive "$dir.zip" -DestinationPath $dir
+            cmd /c "set ISINSTANCE=1&& `"$dir\install_script.bat`""
+            if ($LASTEXITCODE -ne 0) { exit 1 }
+          }
+
+      - name: Restore Qt
+        id: qt-cache
+        uses: actions/cache/restore@v6
+        with:
+          path: C:\Qt
+          key: qt-windows-${{ env.QT_VERSION }}-aqt${{ env.AQT_VERSION }}-1
+
+      - name: Qt
+        if: steps.qt-cache.outputs.cache-hit != 'true'
+        run: |
+          # shellcheck disable=SC2086 # QT_MODULES is a list of words
+          python -m aqt install-qt windows desktop "$QT_VERSION" win64_msvc2022_64 --outputdir /c/Qt --modules $QT_MODULES
+
+      - name: Save Qt
+        if: steps.qt-cache.outputs.cache-hit != 'true'
+        uses: actions/cache/save@v6
+        with:
+          path: C:\Qt
+          key: qt-windows-${{ env.QT_VERSION }}-aqt${{ env.AQT_VERSION }}-1
+
+      # pywinmake keeps each contrib's sources, build and state in
+      # contrib/build and installs into contrib/msvc.
+      - name: Restore the contrib cache
+        uses: actions/cache/restore@v6
+        with:
+          path: |
+            daemon/contrib/build
+            daemon/contrib/msvc
+          key: contrib-windows-${{ hashFiles('daemon/contrib/src/**') }}-${{ github.run_id }}
+          restore-keys: |
+            contrib-windows-${{ hashFiles('daemon/contrib/src/**') }}-
+            contrib-windows-
+
+      # The daemon's contribs are built by pywinmake, which the daemon's CMake
+      # runs (extras/scripts/winmake.py), then the daemon and the app, then
+      # windeployqt gathers the Qt runtime next to Jami.exe in x64/Release.
+      - name: Jami
+        shell: pwsh
+        run: python extras/scripts/build-windows.py "--qt=C:/Qt/$env:QT_VERSION/msvc2022_64"
+
+      # Saved even when a later step fails, so that a new attempt does not
+      # build the contrib again.
+      - name: Save the contrib cache
+        if: always()
+        uses: actions/cache/save@v6
+        with:
+          path: |
+            daemon/contrib/build
+            daemon/contrib/msvc
+          key: contrib-windows-${{ hashFiles('daemon/contrib/src/**') }}-${{ github.run_id }}
+
+      - name: Installer
+        run: |
+          python extras/scripts/build-windows.py "--qt=C:/Qt/$QT_VERSION/msvc2022_64" --skip-build pack --msi
+          msi=jami-client-qt-$VERSION-windows-x86_64.msi
+          mkdir -p dist
+          cp JamiInstaller/bin/Release/en-us/jami-*.msi "dist/$msi"
+          (cd dist && sha256sum "$msi" >"$msi.sha256")
+
+      # Installs the MSI as a user would and starts the installed app: it
+      # must still run after 30 s (a missing DLL or plugin ends it at once).
+      - name: Install and start
+        shell: pwsh
+        run: |
+          $msi = Get-ChildItem dist\*.msi | Select-Object -First 1
+          $p = Start-Process msiexec.exe -ArgumentList "/i `"$($msi.FullName)`" /qn /l*v `"$env:RUNNER_TEMP\msi.log`"" -Wait -PassThru
+          if ($p.ExitCode -ne 0) { Get-Content "$env:RUNNER_TEMP\msi.log" -Tail 40; exit 1 }
+          $exe = Get-ChildItem -Path "$env:ProgramFiles", "$env:LOCALAPPDATA" -Recurse -Filter Jami.exe -ErrorAction SilentlyContinue | Select-Object -First 1
+          if (-not $exe) { Write-Output "::error::The installer installed no Jami.exe"; exit 1 }
+          Write-Output "Installed: $($exe.FullName)"
+          $env:JAMI_DATA_HOME = "$env:RUNNER_TEMP\jami\data"
+          $env:JAMI_CONFIG_HOME = "$env:RUNNER_TEMP\jami\config"
+          $env:JAMI_CACHE_HOME = "$env:RUNNER_TEMP\jami\cache"
+          $app = Start-Process $exe.FullName -PassThru
+          Start-Sleep -Seconds 30
+          if ($app.HasExited) { Write-Output "::error::Jami exited with code $($app.ExitCode)"; exit 1 }
+          Write-Output "Jami is running after 30 s"
+          Stop-Process -Id $app.Id -Force
+
+      - name: Publish the GitHub release
+        if: env.TAG == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        # The Linux build (Jenkins) publishes to the same release: whichever
+        # comes first creates it, so a try that lost that race goes again.
+        run: |
+          for _ in 1 2 3; do
+            "$RUNNER_TEMP/kool277/ci/release/publish-release.sh" jami-client-qt "$GITHUB_REF_NAME" dist/* && exit 0
+            sleep 30
+          done
+          exit 1
+
+      - name: Keep the dry run's installer
+        if: github.event_name == 'workflow_dispatch'
+        uses: actions/upload-artifact@v7
+        with:
+          name: jami-client-qt-${{ env.VERSION }}-windows-x86_64
+          path: dist/
+          retention-days: 7
+
+  macos:
+    # Apple Silicon, with Xcode 26 (the default there), as the iOS pipeline.
+    runs-on: macos-26
+    timeout-minutes: 360
+    env:
+      HOMEBREW_NO_AUTO_UPDATE: 1
+      HOMEBREW_NO_INSTALL_CLEANUP: 1
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+
+      - name: Platform release
+        if: env.RELEASE == 'true'
+        env:
+          PLATFORM_INPUT: ${{ inputs.platform }}
+        run: |
+          if [ "$TAG" = true ]; then
+            # actions/checkout leaves out the tag object: fetch it for its message.
+            git fetch -q --force --no-tags origin "+refs/tags/$GITHUB_REF_NAME:refs/tags/$GITHUB_REF_NAME"
+            platform=$(git for-each-ref --format='%(contents)' "refs/tags/$GITHUB_REF_NAME" | sed -n 's/^Platform: //p')
+            if [ -z "$platform" ]; then
+              echo "::error::The message of tag $GITHUB_REF_NAME names no platform release (no Platform: line)"
+              exit 1
+            fi
+          else
+            platform=$PLATFORM_INPUT
+          fi
+          echo "PLATFORM=$platform" >>"$GITHUB_ENV"
+          git clone -q --depth 1 --branch "$platform" https://github.com/kool277/jami.git "$RUNNER_TEMP/kool277"
+
+      - name: Sources
+        run: |
+          case $GITHUB_REF in
+          refs/tags/v*) version=$GITHUB_REF_NAME ;;
+          *) version=$([ "$RELEASE" = true ] && echo dry-run || echo build)-$(git rev-parse --short HEAD) ;;
+          esac
+          echo "VERSION=$version" >>"$GITHUB_ENV"
+          git submodule update --init daemon 3rdparty/md4c 3rdparty/tidy-html5 3rdparty/zxing-cpp 3rdparty/hunspell
+          if [ "$RELEASE" = true ]; then
+            pin=$(git -C "$RUNNER_TEMP/kool277" ls-tree HEAD jami-daemon | awk '{print $3}')
+            git -C daemon fetch -q origin "$pin"
+            git -C daemon checkout -q "$pin"
+          fi
+          git -C daemon log --oneline -1
+
+      - uses: actions/setup-python@v7
+        with:
+          python-version: '3.12'
+
+      - name: Tools
+        run: |
+          brew install autoconf automake libtool pkg-config gettext coreutils nasm yasm meson ninja
+          python -m pip install -q "aqtinstall==$AQT_VERSION"
+          xcodebuild -version
+          echo "XCODE=$(xcodebuild -version | head -1 | tr -d ' ')" >>"$GITHUB_ENV"
+
+      - name: Restore Qt
+        id: qt-cache
+        uses: actions/cache/restore@v6
+        with:
+          path: ${{ runner.temp }}/Qt
+          key: qt-macos-${{ env.QT_VERSION }}-aqt${{ env.AQT_VERSION }}-1
+
+      - name: Qt
+        if: steps.qt-cache.outputs.cache-hit != 'true'
+        run: |
+          # shellcheck disable=SC2086 # QT_MODULES is a list of words
+          python -m aqt install-qt mac desktop "$QT_VERSION" clang_64 --outputdir "$RUNNER_TEMP/Qt" --modules $QT_MODULES
+
+      - name: Save Qt
+        if: steps.qt-cache.outputs.cache-hit != 'true'
+        uses: actions/cache/save@v6
+        with:
+          path: ${{ runner.temp }}/Qt
+          key: qt-macos-${{ env.QT_VERSION }}-aqt${{ env.AQT_VERSION }}-1
+
+      - name: Restore the contrib cache
+        uses: actions/cache/restore@v6
+        with:
+          path: ${{ runner.temp }}/contrib-cache
+          key: contrib-macos-${{ env.XCODE }}-${{ hashFiles('daemon/contrib/src/**') }}-${{ github.run_id }}
+          restore-keys: |
+            contrib-macos-${{ env.XCODE }}-${{ hashFiles('daemon/contrib/src/**') }}-
+            contrib-macos-${{ env.XCODE }}-
+
+      # One configure builds the daemon's contribs (daemon/contrib/bootstrap,
+      # reusing the cache through CACHE_DIR), then the daemon and the app,
+      # Jami.app, as extras/scripts/install.sh does for macOS.
+      - name: Jami
+        env:
+          CACHE_DIR: ${{ runner.temp }}/contrib-cache
+        run: |
+          mkdir -p "$CACHE_DIR"
+          cmake -S . -B build -GNinja \
+            -DCMAKE_BUILD_TYPE=Release \
+            -DCMAKE_PREFIX_PATH="$RUNNER_TEMP/Qt/$QT_VERSION/macos" \
+            -DCMAKE_OSX_ARCHITECTURES=arm64 \
+            -DBUILD_TESTING=Off \
+            -DENABLE_CRASHREPORTS=OFF
+          cmake --build build
+
+      # Saved even when a later step fails, so that a new attempt does not
+      # build the contrib again.
+      - name: Save the contrib cache
+        if: always()
+        uses: actions/cache/save@v6
+        with:
+          path: ${{ runner.temp }}/contrib-cache
+          key: contrib-macos-${{ env.XCODE }}-${{ hashFiles('daemon/contrib/src/**') }}-${{ github.run_id }}
+
+      # macdeployqt puts the Qt frameworks, plugins and QML modules into the
+      # bundle. Apple Silicon only runs signed code: without a signing
+      # identity the bundle gets an ad hoc signature.
+      - name: Disk image
+        run: |
+          "$RUNNER_TEMP/Qt/$QT_VERSION/macos/bin/macdeployqt" build/Jami.app -qmldir=src/app
+          codesign --force --deep --sign - build/Jami.app
+          codesign --verify --deep --strict build/Jami.app
+          dmg=jami-client-qt-$VERSION-macos-arm64.dmg
+          mkdir -p dist "$RUNNER_TEMP/dmg"
+          cp -R build/Jami.app "$RUNNER_TEMP/dmg/"
+          ln -s /Applications "$RUNNER_TEMP/dmg/Applications"
+          hdiutil create -volname Jami -srcfolder "$RUNNER_TEMP/dmg" -ov -format UDZO "dist/$dmg"
+          (cd dist && shasum -a 256 "$dmg" >"$dmg.sha256")
+
+      # Starts the app from the disk image as a user would: it must still
+      # run after 30 s (a missing framework or plugin ends it at once).
+      - name: Start
+        run: |
+          hdiutil attach -nobrowse -mountpoint "$RUNNER_TEMP/mnt" dist/*.dmg
+          export JAMI_DATA_HOME=$RUNNER_TEMP/jami/data JAMI_CONFIG_HOME=$RUNNER_TEMP/jami/config JAMI_CACHE_HOME=$RUNNER_TEMP/jami/cache
+          "$RUNNER_TEMP/mnt/Jami.app/Contents/MacOS/Jami" -d >"$RUNNER_TEMP/jami.log" 2>&1 &
+          pid=$!
+          sleep 30
+          if ! kill -0 "$pid" 2>/dev/null; then
+            wait "$pid"; echo "::error::Jami exited with code $?"
+            tail -n 40 "$RUNNER_TEMP/jami.log"
+            exit 1
+          fi
+          echo "Jami is running after 30 s"
+          kill "$pid"
+          wait "$pid" || true
+          hdiutil detach "$RUNNER_TEMP/mnt"
+
+      - name: Publish the GitHub release
+        if: env.TAG == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        # The Linux build (Jenkins) publishes to the same release: whichever
+        # comes first creates it, so a try that lost that race goes again.
+        run: |
+          for _ in 1 2 3; do
+            "$RUNNER_TEMP/kool277/ci/release/publish-release.sh" jami-client-qt "$GITHUB_REF_NAME" dist/* && exit 0
+            sleep 30
+          done
+          exit 1
+
+      - name: Keep the dry run's disk image
+        if: github.event_name == 'workflow_dispatch'
+        uses: actions/upload-artifact@v7
+        with:
+          name: jami-client-qt-${{ env.VERSION }}-macos-arm64
+          path: dist/
+          retention-days: 7
