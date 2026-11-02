@@ -390,6 +390,11 @@ jobs:
           # serial port positioning plugin (no Qt Serial Port here).
           rm -f build/Jami.app/Contents/PlugIns/sqldrivers/libqsql{odbc,psql,mimer}.dylib \
             build/Jami.app/Contents/PlugIns/position/libqtposition_nmea.dylib
+          # Homebrew's libraries are on this runner, not on the users' Macs.
+          if find build/Jami.app -type f -exec otool -L {} + 2>/dev/null | grep -E '^[[:space:]]+/(opt/homebrew|usr/local)/'; then
+            echo "::error::Jami.app links libraries from outside the bundle"
+            exit 1
+          fi
           codesign --force --deep --sign - build/Jami.app
           codesign --verify --deep --strict build/Jami.app
           dmg=jami-client-qt-$VERSION-macos-arm64.dmg
