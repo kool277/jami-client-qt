@@ -31,6 +31,10 @@ SYSTEMS = {
     "windows": ("windows_x86", "_msvc2022_64", "win64_msvc2022_64", "msvc2022_64", "msvc2022_64"),
     "mac": ("mac_x64", "", "clang_64", "clang_64", "macos"),
 }
+# The folders at the top of a Qt installation.
+QT_FOLDERS = {"bin", "doc", "include", "lib", "libexec", "metatypes", "mkspecs",
+              "modules", "phrasebooks", "plugins", "qml", "resources", "sbom",
+              "translations"}
 
 
 def retrying(what, action, tries=5):
@@ -79,6 +83,33 @@ def download(url, path):
     retrying(url, action)
 
 
+def qt_root(tree):
+    """The folder of an extracted archive that holds Qt's top folders, the
+    shallowest one: an archive may hold them at its top or under a prefix."""
+    level = [tree]
+    while level:
+        for folder in level:
+            if QT_FOLDERS & set(os.listdir(folder)):
+                return folder
+        level = [os.path.join(f, n) for f in level for n in sorted(os.listdir(f))
+                 if os.path.isdir(os.path.join(f, n)) and not os.path.islink(os.path.join(f, n))]
+    sys.exit("an archive holds no Qt folders")
+
+
+def merge(source, target):
+    """Move what source holds into target, merging the folders both have."""
+    for name in os.listdir(source):
+        s, t = os.path.join(source, name), os.path.join(target, name)
+        if os.path.isdir(t) and not os.path.islink(t) and os.path.isdir(s) and not os.path.islink(s):
+            merge(s, t)
+            continue
+        if os.path.isdir(t) and not os.path.islink(t):
+            shutil.rmtree(t)
+        elif os.path.lexists(t):
+            os.remove(t)
+        os.replace(s, t)
+
+
 def main():
     system, version, out, *modules = sys.argv[1:]
     host, desktop_suffix, arch, extension_arch, installed = SYSTEMS[system]
@@ -102,22 +133,21 @@ def main():
 
     sevenzip = shutil.which("7z") or r"C:\Program Files\7-Zip\7z.exe"
     target = os.path.join(out, version, installed)
-    os.makedirs(out, exist_ok=True)
-    stage = tempfile.mkdtemp(dir=out)
+    os.makedirs(target, exist_ok=True)
     for url in urls:
-        archive = os.path.join(stage, "archive.7z")
         print(f"{url.rsplit('/', 2)[-2]}: {url.rsplit('/', 1)[-1]}", flush=True)
+        stage = tempfile.mkdtemp(dir=out)
+        archive = os.path.join(stage, "archive.7z")
         download(url, archive)
-        subprocess.run([sevenzip, "x", "-y", "-bd", f"-o{stage}", archive],
+        tree = os.path.join(stage, "tree")
+        subprocess.run([sevenzip, "x", "-y", "-bd", f"-o{tree}", archive],
                        check=True, stdout=subprocess.DEVNULL)
-        os.remove(archive)
-    # The archives hold <version>/<installed>/...
-    tree = os.path.join(stage, version, installed)
-    if not os.path.isfile(os.path.join(tree, "lib", "cmake", "Qt6", "Qt6Config.cmake")):
-        sys.exit(f"the archives hold no {version}/{installed}/lib/cmake/Qt6")
-    os.makedirs(os.path.dirname(target), exist_ok=True)
-    shutil.copytree(tree, target, dirs_exist_ok=True)
-    shutil.rmtree(stage)
+        root = qt_root(tree)
+        print(f"  holds {os.path.relpath(root, tree)}/", flush=True)
+        merge(root, target)
+        shutil.rmtree(stage)
+    if not os.path.isfile(os.path.join(target, "lib", "cmake", "Qt6", "Qt6Config.cmake")):
+        sys.exit(f"no lib/cmake/Qt6 in {target}")
     print(f"Qt {version} in {target}")
 
 
