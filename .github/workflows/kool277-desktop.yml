@@ -224,7 +224,10 @@ jobs:
           (cd dist && sha256sum "$msi" >"$msi.sha256")
 
       # Installs the MSI as a user would and starts the installed app: it
-      # must still run after 30 s (a missing DLL or plugin ends it at once).
+      # must still run after 30 s with Qt Quick loaded (a missing DLL stops
+      # it before, behind an error dialog), and Windows must report no
+      # crash. The runner has the Visual C++ runtime, a user's PC may not:
+      # the installer must put it next to Jami.exe.
       - name: Install and start
         shell: pwsh
         run: |
@@ -234,12 +237,20 @@ jobs:
           $exe = Get-ChildItem -Path "$env:ProgramFiles", "$env:LOCALAPPDATA" -Recurse -Filter Jami.exe -ErrorAction SilentlyContinue | Select-Object -First 1
           if (-not $exe) { Write-Output "::error::The installer installed no Jami.exe"; exit 1 }
           Write-Output "Installed: $($exe.FullName)"
+          foreach ($dll in 'vcruntime140.dll', 'msvcp140.dll') {
+            if (-not (Test-Path (Join-Path $exe.DirectoryName $dll))) { Write-Output "::error::The installer did not install $dll"; exit 1 }
+          }
           $env:JAMI_DATA_HOME = "$env:RUNNER_TEMP\jami\data"
           $env:JAMI_CONFIG_HOME = "$env:RUNNER_TEMP\jami\config"
           $env:JAMI_CACHE_HOME = "$env:RUNNER_TEMP\jami\cache"
           $app = Start-Process $exe.FullName -PassThru
           Start-Sleep -Seconds 30
           if ($app.HasExited) { Write-Output "::error::Jami exited with code $($app.ExitCode)"; exit 1 }
+          $app.Refresh()
+          $qt = $app.Modules | Where-Object ModuleName -like 'Qt6*' | ForEach-Object ModuleName
+          Write-Output "Window: '$($app.MainWindowTitle)'; Qt libraries loaded: $($qt -join ' ')"
+          if (Get-Process WerFault -ErrorAction SilentlyContinue) { Write-Output "::error::Windows reports a crash"; exit 1 }
+          if ($qt -notcontains 'Qt6Quick.dll') { Write-Output "::error::Jami has not loaded Qt Quick"; exit 1 }
           Write-Output "Jami is running after 30 s"
           Stop-Process -Id $app.Id -Force
 
