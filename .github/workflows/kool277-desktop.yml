@@ -380,6 +380,11 @@ jobs:
       - name: Disk image
         run: |
           "$RUNNER_TEMP/Qt/$QT_VERSION/macos/bin/macdeployqt" build/Jami.app -qmldir=src/app
+          # macdeployqt also copies plugins that need libraries no Mac has:
+          # the SQL drivers of other servers (Jami uses SQLite) and the
+          # serial port positioning plugin (no Qt Serial Port here).
+          rm -f build/Jami.app/Contents/PlugIns/sqldrivers/libqsql{odbc,psql,mimer}.dylib \
+            build/Jami.app/Contents/PlugIns/position/libqtposition_nmea.dylib
           codesign --force --deep --sign - build/Jami.app
           codesign --verify --deep --strict build/Jami.app
           dmg=jami-client-qt-$VERSION-macos-arm64.dmg
