@@ -55,7 +55,9 @@ defaults:
 
 jobs:
   windows:
-    runs-on: windows-2025
+    # Visual Studio 2022, which upstream's Windows tools know (VSNASM,
+    # build-windows.py); windows-2025 comes with Visual Studio 2026 now.
+    runs-on: windows-2022
     timeout-minutes: 360
     steps:
       # Everything is fetched from public repositories: the token, which can
