@@ -85,7 +85,8 @@ def download(url, path):
 
 def qt_root(tree):
     """The folder of an extracted archive that holds Qt's top folders, the
-    shallowest one: an archive may hold them at its top or under a prefix."""
+    shallowest one: an archive may hold them at its top or under a prefix.
+    None when it holds none."""
     level = [tree]
     while level:
         for folder in level:
@@ -93,7 +94,7 @@ def qt_root(tree):
                 return folder
         level = [os.path.join(f, n) for f in level for n in sorted(os.listdir(f))
                  if os.path.isdir(os.path.join(f, n)) and not os.path.islink(os.path.join(f, n))]
-    sys.exit("an archive holds no Qt folders")
+    return None
 
 
 def merge(source, target):
@@ -143,8 +144,20 @@ def main():
         subprocess.run([sevenzip, "x", "-y", "-bd", f"-o{tree}", archive],
                        check=True, stdout=subprocess.DEVNULL)
         root = qt_root(tree)
-        print(f"  holds {os.path.relpath(root, tree)}/", flush=True)
-        merge(root, target)
+        if root is not None:
+            print(f"  holds {os.path.relpath(root, tree)}/", flush=True)
+            merge(root, target)
+        else:
+            # The DLLs that Qt ships for Windows beside its own (Direct3D's
+            # shader compiler, a software OpenGL) come without a folder:
+            # they go next to Qt's, in bin/.
+            files = [os.path.join(d, f) for d, _, fs in os.walk(tree) for f in fs]
+            if not files or not all(f.lower().endswith(".dll") for f in files):
+                sys.exit(f"an archive holds neither Qt folders nor only DLLs: {files}")
+            os.makedirs(os.path.join(target, "bin"), exist_ok=True)
+            for f in files:
+                os.replace(f, os.path.join(target, "bin", os.path.basename(f)))
+            print(f"  holds {', '.join(os.path.relpath(f, tree) for f in files)}: into bin/", flush=True)
         shutil.rmtree(stage)
     if not os.path.isfile(os.path.join(target, "lib", "cmake", "Qt6", "Qt6Config.cmake")):
         sys.exit(f"no lib/cmake/Qt6 in {target}")
