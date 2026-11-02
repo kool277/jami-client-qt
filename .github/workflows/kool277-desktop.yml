@@ -107,25 +107,37 @@ jobs:
       # What extras/scripts/install-deps-windows.ps1 installs and the runner
       # lacks: the image already has Visual Studio 2022, the Windows SDK,
       # MSYS2, Strawberry Perl, rustup, CMake and the WiX Toolset 3.
+      # MSYS2 (the image's C:\msys64, where build_ffmpeg.bat looks) runs
+      # FFmpeg's configure and make; the action updates it first, as an
+      # update of its runtime needs.
+      - uses: msys2/setup-msys2@v2
+        with:
+          release: false
+          update: true
+          install: make gcc perl diffutils nasm
+
       - name: Tools
         shell: pwsh
         run: |
           python -m pip install -q pywinmake==0.5.11 meson==1.12.1 ninja==1.13.0 "aqtinstall==$env:AQT_VERSION"
           if ($LASTEXITCODE -ne 0) { exit 1 }
-          # MSYS2 runs FFmpeg's configure and make (daemon/contrib/src/ffmpeg).
-          C:\msys64\usr\bin\bash.exe -lc "pacman -Sy --noconfirm --needed make gcc perl diffutils nasm"
-          if ($LASTEXITCODE -ne 0) { exit 1 }
           Invoke-WebRequest http://www.tortall.net/projects/yasm/releases/yasm-1.3.0-win64.exe -OutFile C:\msys64\usr\bin\yasm.exe
-          # The MSBuild rules for the NASM and YASM sources of the
-          # ShiftMediaProject contribs (vpx, x264, gmp, nettle, gnutls).
           foreach ($tool in @(@('VSNASM', '0.8'), @('VSYASM', '0.7'))) {
             $name, $version = $tool
-            $dir = "$env:RUNNER_TEMP\$name"
-            Invoke-WebRequest "https://github.com/ShiftMediaProject/$name/releases/download/$version/$name.zip" -OutFile "$dir.zip"
-            Expand-Archive "$dir.zip" -DestinationPath $dir
-            cmd /c "set ISINSTANCE=1&& `"$dir\install_script.bat`""
-            if ($LASTEXITCODE -ne 0) { exit 1 }
+            Invoke-WebRequest "https://github.com/ShiftMediaProject/$name/releases/download/$version/$name.zip" -OutFile "$env:RUNNER_TEMP\$name.zip"
+            Expand-Archive "$env:RUNNER_TEMP\$name.zip" -DestinationPath "$env:RUNNER_TEMP\$name"
           }
+
+      # The MSBuild rules for the NASM and YASM sources of the
+      # ShiftMediaProject contribs (vpx, x264, gmp, nettle, gnutls). Their
+      # install scripts call themselves again for each Visual Studio they
+      # find, so they run from cmd.
+      - name: VSNASM and VSYASM
+        shell: cmd
+        run: |
+          set ISINSTANCE=1
+          call "%RUNNER_TEMP%\VSNASM\install_script.bat" || exit /b 1
+          call "%RUNNER_TEMP%\VSYASM\install_script.bat" || exit /b 1
 
       - name: Restore Qt
         id: qt-cache
@@ -312,6 +324,22 @@ jobs:
           restore-keys: |
             contrib-macos-${{ env.XCODE }}-${{ hashFiles('daemon/contrib/src/**') }}-
             contrib-macos-${{ env.XCODE }}-
+
+      # The contribs download their sources from many hosts, a few tries each
+      # (ffmpeg.org refused one run): fetch them all first, with more tries,
+      # into CACHE_DIR, where the build looks for them.
+      - name: Contrib sources
+        env:
+          CACHE_DIR: ${{ runner.temp }}/contrib-cache
+        run: |
+          mkdir -p "$CACHE_DIR" "$RUNNER_TEMP/contrib-fetch"
+          cd "$RUNNER_TEMP/contrib-fetch"
+          "$GITHUB_WORKSPACE/daemon/contrib/bootstrap" --host="arm64-apple-darwin$(uname -r)" --cache-dir="$CACHE_DIR"
+          for _ in 1 2 3 4 5; do
+            make fetch && exit 0
+            sleep 60
+          done
+          exit 1
 
       # One configure builds the daemon's contribs (daemon/contrib/bootstrap,
       # reusing the cache through CACHE_DIR), then the daemon and the app,
