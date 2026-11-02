@@ -131,10 +131,17 @@ jobs:
       # The MSBuild rules for the NASM and YASM sources of the
       # ShiftMediaProject contribs (vpx, x264, gmp, nettle, gnutls). Their
       # install scripts call themselves again for each Visual Studio they
-      # find, so they run from cmd.
+      # find, so they run from cmd. They match vswhere's answer with find,
+      # which must be Windows' and not the find of Git's tools on the PATH,
+      # and they use a vswhere.exe found next to them: the runner's.
       - name: VSNASM and VSYASM
         shell: cmd
         run: |
+          set "PATH=%SystemRoot%\System32;%PATH%"
+          set "VSWHERE=%ProgramFiles(x86)%\Microsoft Visual Studio\Installer\vswhere.exe"
+          "%VSWHERE%" -prerelease -products * -requires Microsoft.VisualStudio.Component.VC.Tools.x86.x64 -property installationPath
+          copy /y "%VSWHERE%" "%RUNNER_TEMP%\VSNASM\" || exit /b 1
+          copy /y "%VSWHERE%" "%RUNNER_TEMP%\VSYASM\" || exit /b 1
           set ISINSTANCE=1
           call "%RUNNER_TEMP%\VSNASM\install_script.bat" || exit /b 1
           call "%RUNNER_TEMP%\VSYASM\install_script.bat" || exit /b 1
@@ -332,9 +339,10 @@ jobs:
         env:
           CACHE_DIR: ${{ runner.temp }}/contrib-cache
         run: |
-          mkdir -p "$CACHE_DIR" "$RUNNER_TEMP/contrib-fetch"
-          cd "$RUNNER_TEMP/contrib-fetch"
-          "$GITHUB_WORKSPACE/daemon/contrib/bootstrap" --host="arm64-apple-darwin$(uname -r)" --cache-dir="$CACHE_DIR"
+          # bootstrap runs from a directory in contrib/.
+          mkdir -p "$CACHE_DIR" daemon/contrib/fetch
+          cd daemon/contrib/fetch
+          ../bootstrap --host="arm64-apple-darwin$(uname -r)" --cache-dir="$CACHE_DIR"
           for _ in 1 2 3 4 5; do
             make fetch && exit 0
             sleep 60
