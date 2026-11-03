@@ -120,19 +120,37 @@ jobs:
       - name: Tools
         shell: pwsh
         run: |
+          # The tools' servers sometimes fail a request: five tries each, half
+          # a minute apart.
+          function Retry([scriptblock]$Action) {
+            for ($try = 1; ; $try++) {
+              try { & $Action; return }
+              catch {
+                if ($try -eq 5) { throw }
+                Write-Output "::warning::$_ (try $try), trying again in half a minute"
+                Start-Sleep -Seconds 30
+              }
+            }
+          }
           python -m pip install -q pywinmake==0.5.11 meson==1.12.1 ninja==1.13.0
           if ($LASTEXITCODE -ne 0) { exit 1 }
           # Some contribs' scripts download with wget (restinio); the app's
           # CMakeLists.txt requires pkg-config, which upstream's machines get
           # with Strawberry Perl.
-          choco install wget pkgconfiglite -y --no-progress
-          if ($LASTEXITCODE -ne 0) { exit 1 }
-          Invoke-WebRequest http://www.tortall.net/projects/yasm/releases/yasm-1.3.0-win64.exe -OutFile C:\msys64\usr\bin\yasm.exe
+          Retry {
+            choco install wget pkgconfiglite -y --no-progress
+            if ($LASTEXITCODE -ne 0) { throw "choco install failed with code $LASTEXITCODE" }
+          }
+          Retry { Invoke-WebRequest https://www.tortall.net/projects/yasm/releases/yasm-1.3.0-win64.exe -OutFile C:\msys64\usr\bin\yasm.exe }
           foreach ($tool in @(@('VSNASM', '0.8'), @('VSYASM', '0.7'))) {
             $name, $version = $tool
-            Invoke-WebRequest "https://github.com/ShiftMediaProject/$name/releases/download/$version/$name.zip" -OutFile "$env:RUNNER_TEMP\$name.zip"
+            Retry { Invoke-WebRequest "https://github.com/ShiftMediaProject/$name/releases/download/$version/$name.zip" -OutFile "$env:RUNNER_TEMP\$name.zip" }
             Expand-Archive "$env:RUNNER_TEMP\$name.zip" -DestinationPath "$env:RUNNER_TEMP\$name"
           }
+          # VSNASM's script downloads NASM itself, with one try, unless it finds
+          # the archive next to it.
+          $nasm = (Select-String '^set NASMVERSION=(\S+)' "$env:RUNNER_TEMP\VSNASM\install_script.bat").Matches[0].Groups[1].Value
+          Retry { Invoke-WebRequest "https://www.nasm.us/pub/nasm/releasebuilds/$nasm/win64/nasm-$nasm-win64.zip" -OutFile "$env:RUNNER_TEMP\VSNASM\nasm_$nasm.zip" }
 
       # The MSBuild rules for the NASM and YASM sources of the
       # ShiftMediaProject contribs (vpx, x264, gmp, nettle, gnutls). Their
@@ -180,10 +198,27 @@ jobs:
           path: |
             daemon/contrib/build
             daemon/contrib/msvc
-          key: contrib-windows-${{ hashFiles('daemon/contrib/src/**') }}-${{ github.run_id }}
+          key: contrib-windows-${{ hashFiles('daemon/contrib/src/**') }}-${{ github.run_id }}-${{ github.run_attempt }}
           restore-keys: |
             contrib-windows-${{ hashFiles('daemon/contrib/src/**') }}-
             contrib-windows-
+
+      # The contribs' sources come from several hosts, which pywinmake tries
+      # a few times within seconds (ffmpeg.org refused one run): its fetch
+      # gets them all first, with tries a minute apart, into contrib/build,
+      # where the build's pywinmake then finds them.
+      - name: Contrib sources
+        working-directory: daemon/extras/scripts
+        run: |
+          for _ in 1 2 3 4 5; do
+            python winmake.py fetch && exit 0
+            echo "::warning::Fetching the contribs' sources failed, trying again in a minute"
+            # A failed download leaves its file in contrib/tarballs, which the
+            # next try would take for the archive.
+            rm -rf ../../contrib/tarballs
+            sleep 60
+          done
+          exit 1
 
       # The daemon's contribs are built by pywinmake, which the daemon's CMake
       # runs (extras/scripts/winmake.py), then the daemon and the app, then
@@ -193,7 +228,8 @@ jobs:
         run: python extras/scripts/build-windows.py "--qt=C:/Qt/$env:QT_VERSION/msvc2022_64"
 
       # Saved even when a later step fails, so that a new attempt does not
-      # build the contrib again.
+      # build the contrib again. Each attempt saves under a key of its own:
+      # a key that has a cache cannot be saved again.
       - name: Save the contrib cache
         if: always()
         uses: actions/cache/save@v6
@@ -201,7 +237,7 @@ jobs:
           path: |
             daemon/contrib/build
             daemon/contrib/msvc
-          key: contrib-windows-${{ hashFiles('daemon/contrib/src/**') }}-${{ github.run_id }}
+          key: contrib-windows-${{ hashFiles('daemon/contrib/src/**') }}-${{ github.run_id }}-${{ github.run_attempt }}
 
       # The installer also holds the Visual C++ runtime, which windeployqt
       # leaves out: JamiInstaller.wixproj takes it from VC_CRT_Dir.
@@ -355,7 +391,7 @@ jobs:
         uses: actions/cache/restore@v6
         with:
           path: ${{ runner.temp }}/contrib-cache
-          key: contrib-macos-${{ env.XCODE }}-${{ hashFiles('daemon/contrib/src/**') }}-${{ github.run_id }}
+          key: contrib-macos-${{ env.XCODE }}-${{ hashFiles('daemon/contrib/src/**') }}-${{ github.run_id }}-${{ github.run_attempt }}
           restore-keys: |
             contrib-macos-${{ env.XCODE }}-${{ hashFiles('daemon/contrib/src/**') }}-
             contrib-macos-${{ env.XCODE }}-
@@ -394,13 +430,14 @@ jobs:
           cmake --build build
 
       # Saved even when a later step fails, so that a new attempt does not
-      # build the contrib again.
+      # build the contrib again. Each attempt saves under a key of its own:
+      # a key that has a cache cannot be saved again.
       - name: Save the contrib cache
         if: always()
         uses: actions/cache/save@v6
         with:
           path: ${{ runner.temp }}/contrib-cache
-          key: contrib-macos-${{ env.XCODE }}-${{ hashFiles('daemon/contrib/src/**') }}-${{ github.run_id }}
+          key: contrib-macos-${{ env.XCODE }}-${{ hashFiles('daemon/contrib/src/**') }}-${{ github.run_id }}-${{ github.run_attempt }}
 
       # macdeployqt puts the Qt frameworks, plugins and QML modules into the
       # bundle. Apple Silicon only runs signed code: without a signing
