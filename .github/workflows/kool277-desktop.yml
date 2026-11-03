@@ -198,7 +198,7 @@ jobs:
           path: |
             daemon/contrib/build
             daemon/contrib/msvc
-          key: contrib-windows-${{ hashFiles('daemon/contrib/src/**') }}-${{ github.run_id }}
+          key: contrib-windows-${{ hashFiles('daemon/contrib/src/**') }}-${{ github.run_id }}-${{ github.run_attempt }}
           restore-keys: |
             contrib-windows-${{ hashFiles('daemon/contrib/src/**') }}-
             contrib-windows-
@@ -228,7 +228,8 @@ jobs:
         run: python extras/scripts/build-windows.py "--qt=C:/Qt/$env:QT_VERSION/msvc2022_64"
 
       # Saved even when a later step fails, so that a new attempt does not
-      # build the contrib again.
+      # build the contrib again. Each attempt saves under a key of its own:
+      # a key that has a cache cannot be saved again.
       - name: Save the contrib cache
         if: always()
         uses: actions/cache/save@v6
@@ -236,7 +237,7 @@ jobs:
           path: |
             daemon/contrib/build
             daemon/contrib/msvc
-          key: contrib-windows-${{ hashFiles('daemon/contrib/src/**') }}-${{ github.run_id }}
+          key: contrib-windows-${{ hashFiles('daemon/contrib/src/**') }}-${{ github.run_id }}-${{ github.run_attempt }}
 
       # The installer also holds the Visual C++ runtime, which windeployqt
       # leaves out: JamiInstaller.wixproj takes it from VC_CRT_Dir.
@@ -390,7 +391,7 @@ jobs:
         uses: actions/cache/restore@v6
         with:
           path: ${{ runner.temp }}/contrib-cache
-          key: contrib-macos-${{ env.XCODE }}-${{ hashFiles('daemon/contrib/src/**') }}-${{ github.run_id }}
+          key: contrib-macos-${{ env.XCODE }}-${{ hashFiles('daemon/contrib/src/**') }}-${{ github.run_id }}-${{ github.run_attempt }}
           restore-keys: |
             contrib-macos-${{ env.XCODE }}-${{ hashFiles('daemon/contrib/src/**') }}-
             contrib-macos-${{ env.XCODE }}-
@@ -429,13 +430,14 @@ jobs:
           cmake --build build
 
       # Saved even when a later step fails, so that a new attempt does not
-      # build the contrib again.
+      # build the contrib again. Each attempt saves under a key of its own:
+      # a key that has a cache cannot be saved again.
       - name: Save the contrib cache
         if: always()
         uses: actions/cache/save@v6
         with:
           path: ${{ runner.temp }}/contrib-cache
-          key: contrib-macos-${{ env.XCODE }}-${{ hashFiles('daemon/contrib/src/**') }}-${{ github.run_id }}
+          key: contrib-macos-${{ env.XCODE }}-${{ hashFiles('daemon/contrib/src/**') }}-${{ github.run_id }}-${{ github.run_attempt }}
 
       # macdeployqt puts the Qt frameworks, plugins and QML modules into the
       # bundle. Apple Silicon only runs signed code: without a signing
