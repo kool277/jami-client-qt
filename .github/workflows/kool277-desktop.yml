@@ -110,9 +110,12 @@ jobs:
       # MSYS2, Strawberry Perl, rustup, CMake and the WiX Toolset 3.
       # MSYS2 (the image's C:\msys64, where build_ffmpeg.bat looks) runs
       # FFmpeg's configure and make; the action updates it first, as an
-      # update of its runtime needs.
+      # update of its runtime needs. The tools are MSYS packages; the
+      # environment, which the action exports in MSYSTEM for FFmpeg's login
+      # shell, is UCRT64 instead of the deprecated default, MINGW64.
       - uses: msys2/setup-msys2@v2
         with:
+          msystem: UCRT64
           release: false
           update: true
           install: make gcc perl diffutils nasm
