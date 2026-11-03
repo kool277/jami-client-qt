@@ -185,6 +185,23 @@ jobs:
             contrib-windows-${{ hashFiles('daemon/contrib/src/**') }}-
             contrib-windows-
 
+      # The contribs' sources come from several hosts, which pywinmake tries
+      # a few times within seconds (ffmpeg.org refused one run): its fetch
+      # gets them all first, with tries a minute apart, into contrib/build,
+      # where the build's pywinmake then finds them.
+      - name: Contrib sources
+        working-directory: daemon/extras/scripts
+        run: |
+          for _ in 1 2 3 4 5; do
+            python winmake.py fetch && exit 0
+            echo "::warning::Fetching the contribs' sources failed, trying again in a minute"
+            # A failed download leaves its file in contrib/tarballs, which the
+            # next try would take for the archive.
+            rm -rf ../../contrib/tarballs
+            sleep 60
+          done
+          exit 1
+
       # The daemon's contribs are built by pywinmake, which the daemon's CMake
       # runs (extras/scripts/winmake.py), then the daemon and the app, then
       # windeployqt gathers the Qt runtime next to Jami.exe in x64/Release.
